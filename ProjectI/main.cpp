@@ -91,12 +91,43 @@ void mergeSort(list<string> &arr, list<string>::iterator left, list<string>::ite
 	}
 }
 
-// Function: quickSort
-// Parameters: array that will be sorted, integer representing the size of the array (length)
-// Purpose: Uses the quick sort algorithm to sort the input array
-void quickSort(list<string> &arr, int size)
+// Function: partionHelper
+// Parameters: -- vector<string> vec - vector that partition is being taken from
+//			   -- int low - integer representing the first index in the vector
+// 			   -- int high - integer representing the last index in the vector
+// Purpose: Assists in the quick sort algorithm by creating a pivot point and placing all elements less than it on the left side and all elements greater than on the right side.
+int partionHelper(vector<string> vec, int low, int high)
 {
-	cout << "quick" << endl;
+	string pivot = vec[high];
+
+	int i = low - 1;
+
+	for (int j = low; j < high - 1; j++)
+	{
+		if (vec[j] < pivot)
+		{
+			i++;
+			swap(vec[i], vec[j]);
+		}
+	}
+	swap(vec[i + 1], vec[high]);
+	return (i + 1);
+}
+
+// Function: quickSort
+// Parameters: -- vector<string> vec - vector that will be sorted
+//   		   -- int low - integer representing the first index of the vector
+//			   -- int high - integer representing the last index of the vector
+// Purpose: Uses the quick sort algorithm to sort the input array. Uses recursion and the partionHelper function to accomplish this.
+void quickSort(vector<string> &vec, int low, int high)
+{
+	if (low < high)
+	{
+		int partition = partionHelper(vec, low, high);
+
+		quickSort(vec, low, partition);
+		quickSort(vec, partition + 1, high);
+	}
 }
 
 // Function: heapSort
@@ -159,7 +190,13 @@ int main(int argc, char *argv[])
 	}
 	else if ((string)sortingtype == "quick")
 	{
-		quickSort(inputArr, arrSize);
+		vector<string> vec(inputArr.begin(), inputArr.end());
+
+		int low = 0;
+		int high = vec.size() - 1;
+		quickSort(vec, low, high);
+
+		inputArr.insert(inputArr.end(), vec.begin(), vec.end());
 	}
 	else if ((string)sortingtype == "heap")
 	{
