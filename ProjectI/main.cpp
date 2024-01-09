@@ -128,6 +128,11 @@ void quickSort(vector<string> &vec, int low, int high)
 		quickSort(vec, low, partition);
 		quickSort(vec, partition + 1, high);
 	}
+
+	for (int i = 0; i < vec.size(); i++)
+	{
+		cout << vec[i] << endl;
+	}
 }
 
 // Function: heapSort
@@ -195,8 +200,6 @@ int main(int argc, char *argv[])
 		int low = 0;
 		int high = vec.size() - 1;
 		quickSort(vec, low, high);
-
-		inputArr.insert(inputArr.end(), vec.begin(), vec.end());
 	}
 	else if ((string)sortingtype == "heap")
 	{
