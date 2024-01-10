@@ -93,16 +93,16 @@ void mergeSort(list<string> &arr, list<string>::iterator left, list<string>::ite
 
 // Function: partionHelper
 // Parameters: -- vector<string> vec - vector that partition is being taken from
-//			   -- int low - integer representing the first index in the vector
-// 			   -- int high - integer representing the last index in the vector
+//			   -- int start - integer representing the first index in the vector
+// 			   -- int end - integer representing the last index in the vector
 // Purpose: Assists in the quick sort algorithm by creating a pivot point and placing all elements less than it on the left side and all elements greater than on the right side.
-int partionHelper(vector<string> vec, int low, int high)
+int partionHelper(vector<string> &vec, int start, int end)
 {
-	string pivot = vec[high];
+	string pivot = vec[end];
 
-	int i = low - 1;
+	int i = start - 1;
 
-	for (int j = low; j < high - 1; j++)
+	for (int j = start; j <= end - 1; j++)
 	{
 		if (vec[j] < pivot)
 		{
@@ -110,28 +110,24 @@ int partionHelper(vector<string> vec, int low, int high)
 			swap(vec[i], vec[j]);
 		}
 	}
-	swap(vec[i + 1], vec[high]);
+	swap(vec[i + 1], vec[end]);
 	return (i + 1);
 }
 
 // Function: quickSort
 // Parameters: -- vector<string> vec - vector that will be sorted
-//   		   -- int low - integer representing the first index of the vector
-//			   -- int high - integer representing the last index of the vector
+//   		   -- int start - integer representing the first index of the vector
+//			   -- int end - integer representing the last index of the vector
 // Purpose: Uses the quick sort algorithm to sort the input array. Uses recursion and the partionHelper function to accomplish this.
-void quickSort(vector<string> &vec, int low, int high)
+void quickSort(vector<string> &vec, int start, int end)
 {
-	if (low < high)
-	{
-		int partition = partionHelper(vec, low, high);
 
-		quickSort(vec, low, partition);
-		quickSort(vec, partition + 1, high);
-	}
-
-	for (int i = 0; i < vec.size(); i++)
+	if (start < end)
 	{
-		cout << vec[i] << endl;
+		int partition = partionHelper(vec, start, end);
+
+		quickSort(vec, start, partition - 1);
+		quickSort(vec, partition + 1, end);
 	}
 }
 
@@ -197,9 +193,16 @@ int main(int argc, char *argv[])
 	{
 		vector<string> vec(inputArr.begin(), inputArr.end());
 
-		int low = 0;
-		int high = vec.size() - 1;
-		quickSort(vec, low, high);
+		int start = 0;
+		int end = vec.size() - 1;
+		quickSort(vec, start, end);
+
+		inputArr.clear();
+
+		for (int i = 0; i < vec.size(); i++)
+		{
+			inputArr.push_back(vec[i]);
+		}
 	}
 	else if ((string)sortingtype == "heap")
 	{
