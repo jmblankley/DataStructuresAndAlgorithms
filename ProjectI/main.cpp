@@ -206,6 +206,7 @@ int main(int argc, char *argv[])
 	}
 	else if ((string)sortingtype == "heap")
 	{
+		make_heap(inputArr.begin(), inputArr.end());
 
 		heapSort(inputArr, arrSize);
 	}

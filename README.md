@@ -96,3 +96,72 @@ for(double val : myList)
 This gives on separate lines: 2.72 3.14 -4
 
 You can do similar iteration with set, multiset, or any other container in STL
+
+### The auto C++ Keyword
+
+Don't know what type to declare something? Use auto as the type:
+
+```
+auto var1 = 4 // var1 is of type int
+auto var2 = 4.0 // var2 is of type double
+cout << var1/3 << endl; //prints 1
+cout << var2/3 << endl; // prints 1.33333
+```
+
+You can use the auto within the collection iterator:
+
+```
+for(auto val : myList)
+{
+	cout << val << endl;
+}
+```
+
+Note that myList could be of type _anything_!
+
+### static and extern
+
+If you want a global variable to only be visible in the current file/scope:
+
+- Use the `static` keyword to do so
+
+```
+// no access outside of current scope
+static int soemvar:
+```
+
+If you want to access a gloabal vairalbe in another scope:
+
+```
+// extern says not to declare a variable,
+// just note that is exists elsewhere
+extern int someVar;
+```
+
+### Inheritance in C++
+
+Just as in Java, one class (a child) can inherit from another (a parent):
+
+```
+class Media
+{
+	private:
+		string _title;
+	public:
+		Media();
+		string getTitle();
+};
+```
+
+```
+class Book: public Media
+{
+	private:
+		int _pages;
+	public:
+		Book();
+		int getPages();
+};
+```
+
+Objects of type Book can call getTitle, since the inheritance is public.!
