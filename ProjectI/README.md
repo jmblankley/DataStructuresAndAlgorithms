@@ -24,6 +24,7 @@ In the terminal:
 The following commands are available for interacting with the program:
 
 - `-print` - can be added at the end of the execution line to display the sorted data.
+- `time` - was used in the beginning of the command to get data to construct the graphs
 
 ## Example
 
