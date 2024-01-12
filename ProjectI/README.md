@@ -43,3 +43,11 @@ one
 three
 two
 ```
+
+## My Results
+
+(Dr. Blythe, this is for my github repo it only will show the images on Github.)
+
+![Rand Data Graph](https://github.com/jmblankley/DatastructuresAndAlgorithms/blob/main/ProjectI/graphs/randgraph.png)
+
+![Srt Data Graph](https://github.com/jmblankley/DatastructuresAndAlgorithms/blob/main/ProjectI/graphs/srtgraph.png)
