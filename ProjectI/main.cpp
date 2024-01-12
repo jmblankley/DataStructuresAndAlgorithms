@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <set>
 using namespace std;
 
 // Function: bubbleSort
@@ -131,12 +132,50 @@ void quickSort(vector<string> &vec, int start, int end)
 	}
 }
 
+// Function: heapSortHelper
+// Parameters: -- vector<string> arr - vector that will be sorted
+//			   -- int n - the size of the given vector(heap)
+//			   -- int i - the index of the root of the subtree
+// Purpose: Assists the heapSort function by maintaining the max heap properties and iterating through each node
+void heapSortHelper(vector<string> &arr, int n, int i)
+{
+	int largest = i;
+	int left = 2 * i + 1;
+	int right = 2 * i + 2;
+
+	// check if left child is bigger than the root
+	if (left < n && arr[left] > arr[largest])
+		largest = left;
+
+	// check if the right child is bigger than the root or the left child
+	if (right < n && arr[right] > arr[largest])
+		largest = right;
+
+	// if the largest element is not the root, swap and use recusion
+	if (largest != i)
+	{
+		std::swap(arr[i], arr[largest]);
+		heapSortHelper(arr, n, largest);
+	}
+}
+
 // Function: heapSort
 // Parameters: array that will be sorted, integer representing the size of the array (length)
 // Purpose: Uses the heap sort algorithm to sort the input array
-void heapSort(list<string> &arr, int size)
+void heapSort(vector<string> &arr, int size)
 {
-	cout << "heap" << endl;
+	// construct the heap from the vector
+	for (int i = size - 2 / 1; i >= 0; i--)
+	{
+		heapSortHelper(arr, size, i);
+	}
+
+	// extract each element from the heap
+	for (int j = size - 1; j > 0; j--)
+	{
+		swap(arr[0], arr[j]);	   // move root to the end
+		heapSortHelper(arr, j, 0); // call heapSortHelper on smaller heap
+	}
 }
 
 // Function: sysSort
@@ -186,7 +225,6 @@ int main(int argc, char *argv[])
 	}
 	else if ((string)sortingtype == "merge")
 	{
-
 		mergeSort(inputArr, inputArr.begin(), inputArr.end());
 	}
 	else if ((string)sortingtype == "quick")
@@ -206,9 +244,16 @@ int main(int argc, char *argv[])
 	}
 	else if ((string)sortingtype == "heap")
 	{
-		make_heap(inputArr.begin(), inputArr.end());
+		vector<string> vec(inputArr.begin(), inputArr.end());
 
-		heapSort(inputArr, arrSize);
+		heapSort(vec, arrSize);
+
+		inputArr.clear();
+
+		for (int i = 0; i < vec.size(); i++)
+		{
+			inputArr.push_back(vec[i]);
+		}
 	}
 	else if ((string)sortingtype == "sys")
 	{
