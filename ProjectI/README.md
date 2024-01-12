@@ -1,4 +1,4 @@
-# Conversion Program
+# Sorting Algorithm Run Times
 
 **Authors:** Joshua Blankley
 
@@ -6,7 +6,7 @@
 
 ## Project Description
 
-This project asks the user to input a text file containing a set of data followed by a type of sorting (merge, quick, bubble, heap, and sys) they wish to sort the data by. It then outputs the time complexities of this data into a graph to display the difference in run times for the different types of sorting algorithms.
+This project asks the user to input a text file containing a set of data followed by a type of sorting (merge, quick, bubble, heap, and sys) they wish to sort the data by. I have used this data in conjunction with `time` in the command line to graph the run times compared to O(n^2) and O(nlogn).
 
 ## Technologies Used
 
