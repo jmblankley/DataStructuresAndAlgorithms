@@ -47,7 +47,7 @@ two
 
 ## My Results
 
-(Dr. Blythe, this is for my github repo it only will show the images on Github.)
+(Dr. Blythe, this is for my github repo it only will show the images on Github. But I have attached a pdf of the graphs in the submission.)
 
 ![Rand Data Graph](https://github.com/jmblankley/DatastructuresAndAlgorithms/blob/main/ProjectI/graphs/randgraph.png)
 
