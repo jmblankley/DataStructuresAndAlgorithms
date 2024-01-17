@@ -164,4 +164,25 @@ class Book: public Media
 };
 ```
 
-Objects of type Book can call getTitle, since the inheritance is public.!
+Objects of type Book can call getTitle, since the inheritance is public!
+
+### Heaps
+
+- Heap Sort Algorithm
+  - Upheap:
+    - Check the parent of the node and see if it greater than the current node.
+    - If it is greater than, swap indicies.
+    - If it is not, stay at the current index.
+    - This method will put the smallest value at the top.
+  - Downheap:
+    - Pick off the top value (smallest value).
+    - Store it in a different array.
+    - Take the bottom value from the tree and put it at the top.
+    - Check the left and right child
+      - Make sure the child exists
+      - Pick the child with the lowest value and swap with it.
+    - Repeat from 'Check the left and right child' until the node you are moving is at the bottom.
+    - Pick off the top value ... start again.
+  - parent **index** = my **index** / 2;
+  - left child **index** = my **index** x 2;
+  - right child **index** = my **index** x 2 + 1;
