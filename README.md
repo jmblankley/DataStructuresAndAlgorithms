@@ -163,8 +163,71 @@ class Book: public Media
 		int getPages();
 };
 ```
+Some other notes on inheritance:
+- Instead of pulic, a parent can be inherited in a private manner
+```
+class DVD: private Media
+{ // ...
+```
+- In this case, object of type DVD can *not* call Media's public methods
+- but method implemented in the DVD class *can* call Media's public methods.
+
 
 Objects of type Book can call getTitle, since the inheritance is public!
+
+### Virtal Functions
+Consider the following: 
+```
+class M<edia
+{
+public:
+	Media();
+	virtual string getTitle(); { return "I am Media!";}
+	string info() {return "USE Me!";}
+};
+```
+Media m = new Media();
+m.getTitle();
+m.info();
+or
+Media *m = new Media();
+m->getTitle();
+m->info();
+```
+class Book: public Media
+{
+public:
+	Book();
+	virtual string getTitle {return "I am a Book!";}
+	string info() {return "READ Me!";}
+};
+```
+Book b = new Book();
+b.getTitle();
+b.info();
+or
+**Media** *m = new Book();
+
+m->getTitle(); // I am a Book! <- notice that the virtual function does what is expected
+
+m->info(); // USE me! <- the non virutal function gives .info from the Media class
+
+- In the Book declaration since it inherits media, it technically *is* Media.
+- When there is a pointer and you try to call a virtual function it will find the type of what you are actually trying to call and do that instead.
+
+### Destructors
+Method that is *automatically* called as an object either
+- is deleted (pointer reference)
+- goes out of scope (ex. method ends)
+
+Like constructors, these have a specific name:
+- starts with a tilde sign (~)
+- followed by the name of the class
+
+By wary:
+- usually used to delete dynamically allocated memory
+- but ... what if that memory is being used elsewhere?
+
 
 ### Heaps
 
