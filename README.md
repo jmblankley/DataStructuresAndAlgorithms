@@ -163,20 +163,25 @@ class Book: public Media
 		int getPages();
 };
 ```
+
 Some other notes on inheritance:
+
 - Instead of pulic, a parent can be inherited in a private manner
+
 ```
 class DVD: private Media
 { // ...
 ```
-- In this case, object of type DVD can *not* call Media's public methods
-- but method implemented in the DVD class *can* call Media's public methods.
 
+- In this case, object of type DVD can _not_ call Media's public methods
+- but method implemented in the DVD class _can_ call Media's public methods.
 
 Objects of type Book can call getTitle, since the inheritance is public!
 
 ### Virtal Functions
-Consider the following: 
+
+Consider the following:
+
 ```
 class M<edia
 {
@@ -186,13 +191,15 @@ public:
 	string info() {return "USE Me!";}
 };
 ```
+
 Media m = new Media();
 m.getTitle();
 m.info();
 or
-Media *m = new Media();
+Media \*m = new Media();
 m->getTitle();
 m->info();
+
 ```
 class Book: public Media
 {
@@ -202,32 +209,36 @@ public:
 	string info() {return "READ Me!";}
 };
 ```
+
 Book b = new Book();
 b.getTitle();
 b.info();
 or
-**Media** *m = new Book();
+**Media** \*m = new Book();
 
 m->getTitle(); // I am a Book! <- notice that the virtual function does what is expected
 
 m->info(); // USE me! <- the non virutal function gives .info from the Media class
 
-- In the Book declaration since it inherits media, it technically *is* Media.
+- In the Book declaration since it inherits media, it technically _is_ Media.
 - When there is a pointer and you try to call a virtual function it will find the type of what you are actually trying to call and do that instead.
 
 ### Destructors
-Method that is *automatically* called as an object either
+
+Method that is _automatically_ called as an object either
+
 - is deleted (pointer reference)
 - goes out of scope (ex. method ends)
 
 Like constructors, these have a specific name:
+
 - starts with a tilde sign (~)
 - followed by the name of the class
 
 By wary:
+
 - usually used to delete dynamically allocated memory
 - but ... what if that memory is being used elsewhere?
-
 
 ### Heaps
 
@@ -249,3 +260,112 @@ By wary:
   - parent **index** = my **index** / 2;
   - left child **index** = my **index** x 2;
   - right child **index** = my **index** x 2 + 1;
+
+## Why Data Structures and Algorithms?
+
+### Data Structures
+
+- "Why not just use a big array?"
+- Example Problem:
+  - Search for a number k in a set of N numbers
+- Solution #1 (Array)
+  - Store numbers in an array of size N
+  - Iterate through array until find k
+  - Number of checks
+    - Best Case: 1 (k = 29)
+    - Worst Case: N (k = 25)
+    - Average Case: N / 2
+- Solution #2 (Binary Search Tree)
+  - Store numbers in a binary search tree
+  - Search tree until find k
+  - Number of checks:
+    - Best Case: 1 (k = 29)
+    - Worst Case: logN (ex. k = 25)
+    - Average Case: (logN) / 2
+- Analysis
+  - Does it matter?
+    - Assume:
+      - N = 1000000000 = 1 billion (Walmart transactions in 100 days)
+      - 1 Ghz processor = 10^9 cycles per second
+    - Solution #1
+      - Worst Case: 1 billion checks = 10 seconds
+    - Solution #2
+      - Worst Case log(10^9) = 30 checks = 0.000003 seconds
+
+### Advances Data Structures
+
+- Does it matter?
+  - The Message
+    - Appropriate data structures ease design and improve performance
+  - ???
+    - ???
+
+### Purpose
+
+- Why bother analyzing code; isn't getting it to work enough?
+  - Prior examples show otherwise
+- Estimate time
+
+### Algorithms
+
+- Problem
+  - Sppecifies the desired input-output relationship
+- Algorithm
+  - Well-defined computational ...
+
+### Algorithm Analysis
+
+- Predict resource utilization of an algorithm
+  - Running time
+  - Memory
+- Dependent on Architecutre
+  - Serial (what you use every day)
+  - Parallel
+  - Quantum
+
+### What to Analyze
+
+- Running Time T(N)
+  - N is typically the size of the input
+  - Sorting?
+  - Multiplying two integers?
+  - Multiplying two matricies?
+  - Traversing a graph?
+- T(N) measures number of primitive operations performed
+  - e.g., addition, multiplication, comparison, assignment, ...
+- Example:
+
+  ```
+  int sum(int n)						// Cost
+  {
+  	int partialSum;					// 0
+
+  	partialSum = 0;					// 1
+  	for(int i = 1; i <= n; i++)		// 1 + (N + 1) + 1
+  	{
+  		partialSum += i * i * i;	// N * (1 + 1 + 2)
+  	}
+  	return partialSum;				// 1
+  }
+  									// T(N) = 6N + 4
+  ```
+
+- Worst-Case running time T_worst(N)
+- Average-Case running time T_avg(N)
+- T_avg(N) <= T_worst(N)
+- Typically analyze worst-case behavior
+- Average case hard to compute
+- Worst-case gives guaranteed upper bound
+
+### Rate of Growth
+
+- Exact expressions for T(N) meaningless and hard to compare
+- Rate of Growth:
+  - Asymptotic behavior of T(N) as N gets big
+  - Usually expressed as fastest growing term in T(N), dropping constant coefficients
+    - e.g., T(N) = 3N^2 + N + 1 -> Θ(N^2)
+  - Θ is read as "big-theta"
+- T(N) = O(f(N)) if there\_ are positive constants c and n_0 such that T(N) <= c\*f(N) when N >= n_0
+  - Asymptotic upper bound
+  - "Big-Oh" notation
+- T(N) = OMEGA(g(N)) if there are
