@@ -368,4 +368,91 @@ By wary:
 - T(N) = O(f(N)) if there\_ are positive constants c and n_0 such that T(N) <= c\*f(N) when N >= n_0
   - Asymptotic upper bound
   - "Big-Oh" notation
-- T(N) = OMEGA(g(N)) if there are
+- T(N) = OMEGA(g(N)) if there are ...
+
+### Maximum Subsequence Example
+- Maximum subsequence sum problem
+	- Given (possibly negative) integers,A_1, A_2, ..., A_N, find the maximum value of:
+   ...
+
+	- Algorithm 1
+		```
+		MaxSubSum1(A,N)
+			maxSum = 0;
+			for i = 1 to N
+				for j = i to N
+					sum = 0;
+					for k = i to j
+						sum = sum + A[k]
+					if(sum > maxSum)
+						maxSum = sum
+			return maxSum
+		```
+		- This is Θ(N^3)
+ 
+	- Algorithm 2
+		```
+		MaxSubSum2(A,N)
+			maxSum = 0;
+			for i = 1 to N
+				sum = 0;
+				for j = i to N
+					sum = sum + A[j];
+					if sum > maxSum
+						maxSum = sum
+		return maxSum
+		```
+		- This is Θ(N^2)
+
+	- Algorithm 3
+		- Recursive, divide and conquer
+			- Divide sequence in half: A[1 ... center] and A[center+1 ... N]
+				- Recursively compute MaxSubSum of left half
+				- Recursively compute MaxSubSum of right half
+				- Compute MaxSubSum of sequence containing the two elements A[center] and A[center + 1]
+			- Return the max of these
+		 ```
+		 MaxSubSum3(A, i, j)
+				if(i = j and A[i] >= 0)
+					return A[i]
+				if(i = j and A[i] < 0)
+					return ...
+		 ```
+		- This give T(N) = Θ(N*log(N))
+
+	- Algorithm 4
+		```
+		MaxSubSum4(A,N)
+		maxSum = 0
+		sum = 0
+		for j = 1 to N
+			sum = sum + A[j]
+			if(sum > maxSum)
+				maxSum = sum
+			else if(sum < 0)
+				sum = 0
+		return maxSum
+		```
+		- This gives T(N) = Θ(N)
+    
+### Exponentiation
+
+- Write an algorithm to calculate
+  - x^N where x is a double and N is a positive integer
+- Most obvious solution s something like:
+  ```
+  Power(x, N)
+  	prod=1
+  	for(i=1; i<=N; i++)
+  	{
+  		prod *= x
+  	}
+  	return prod;
+  ```
+  - T(N) = Θ(N) ... can we do better?
+- We know from math that:
+	- x^0 = 1 and x^1 = x
+ 	- x^N = x^2*N/2 = (x^2)N/2
+- Works great for even values of N... what if N is an odd number (N/2 would not be an integer)?
+	- x^N = x^N-1*x = x^2 ...
+ 	- Note the recursive nature of this calculation
