@@ -371,70 +371,79 @@ By wary:
 - T(N) = OMEGA(g(N)) if there are ...
 
 ### Maximum Subsequence Example
+
 - Maximum subsequence sum problem
-	- Given (possibly negative) integers,A_1, A_2, ..., A_N, find the maximum value of:
-   ...
 
-	- Algorithm 1
-		```
-		MaxSubSum1(A,N)
-			maxSum = 0;
-			for i = 1 to N
-				for j = i to N
-					sum = 0;
-					for k = i to j
-						sum = sum + A[k]
-					if(sum > maxSum)
-						maxSum = sum
-			return maxSum
-		```
-		- This is Θ(N^3)
- 
-	- Algorithm 2
-		```
-		MaxSubSum2(A,N)
-			maxSum = 0;
-			for i = 1 to N
-				sum = 0;
-				for j = i to N
-					sum = sum + A[j];
-					if sum > maxSum
-						maxSum = sum
-		return maxSum
-		```
-		- This is Θ(N^2)
+  - Given (possibly negative) integers,A_1, A_2, ..., A_N, find the maximum value of:
+    ...
 
-	- Algorithm 3
-		- Recursive, divide and conquer
-			- Divide sequence in half: A[1 ... center] and A[center+1 ... N]
-				- Recursively compute MaxSubSum of left half
-				- Recursively compute MaxSubSum of right half
-				- Compute MaxSubSum of sequence containing the two elements A[center] and A[center + 1]
-			- Return the max of these
-		 ```
-		 MaxSubSum3(A, i, j)
-				if(i = j and A[i] >= 0)
-					return A[i]
-				if(i = j and A[i] < 0)
-					return ...
-		 ```
-		- This give T(N) = Θ(N*log(N))
+  - Algorithm 1
 
-	- Algorithm 4
-		```
-		MaxSubSum4(A,N)
-		maxSum = 0
-		sum = 0
-		for j = 1 to N
-			sum = sum + A[j]
-			if(sum > maxSum)
-				maxSum = sum
-			else if(sum < 0)
-				sum = 0
-		return maxSum
-		```
-		- This gives T(N) = Θ(N)
-    
+    ```
+    MaxSubSum1(A,N)
+    	maxSum = 0;
+    	for i = 1 to N
+    		for j = i to N
+    			sum = 0;
+    			for k = i to j
+    				sum = sum + A[k]
+    			if(sum > maxSum)
+    				maxSum = sum
+    	return maxSum
+    ```
+
+    - This is Θ(N^3)
+
+  - Algorithm 2
+
+    ```
+    MaxSubSum2(A,N)
+    	maxSum = 0;
+    	for i = 1 to N
+    		sum = 0;
+    		for j = i to N
+    			sum = sum + A[j];
+    			if sum > maxSum
+    				maxSum = sum
+    return maxSum
+    ```
+
+    - This is Θ(N^2)
+
+  - Algorithm 3
+
+    - Recursive, divide and conquer
+      - Divide sequence in half: A[1 ... center] and A[center+1 ... N]
+        - Recursively compute MaxSubSum of left half
+        - Recursively compute MaxSubSum of right half
+        - Compute MaxSubSum of sequence containing the two elements A[center] and A[center + 1]
+      - Return the max of these
+
+    ```
+    MaxSubSum3(A, i, j)
+    		if(i = j and A[i] >= 0)
+    			return A[i]
+    		if(i = j and A[i] < 0)
+    			return ...
+    ```
+
+    - This give T(N) = Θ(N\*log(N))
+
+  - Algorithm 4
+    ```
+    MaxSubSum4(A,N)
+    maxSum = 0
+    sum = 0
+    for j = 1 to N
+    	sum = sum + A[j]
+    	if(sum > maxSum)
+    		maxSum = sum
+    	else if(sum < 0)
+    		sum = 0
+    return maxSum
+    ```
+    - This gives T(N) = Θ(N)
+
 ### Exponentiation
 
 - Write an algorithm to calculate
@@ -451,8 +460,102 @@ By wary:
   ```
   - T(N) = Θ(N) ... can we do better?
 - We know from math that:
-	- x^0 = 1 and x^1 = x
- 	- x^N = x^2*N/2 = (x^2)N/2
+  - x^0 = 1 and x^1 = x
+  - x^N = x^2\*N/2 = (x^2)N/2
 - Works great for even values of N... what if N is an odd number (N/2 would not be an integer)?
-	- x^N = x^N-1*x = x^2 ...
- 	- Note the recursive nature of this calculation
+  - x^N = x^N-1\*x = x^2 ...
+  - Note the recursive nature of this calculation
+
+### The List ADT
+
+- List of size N: A*0, A_1, ..., A*(n-1)
+- Each element A_k has a unique position in the list
+- Elements can be arbitrarily complex.
+- Operations:
+  - insert(X, k)
+  - remove(k)
+  - find(X)
+  - findKth(k)
+  - printList()
+
+### List Implemented with Arrays
+
+Operations:
+
+```
+Insert(X,k); // O(N)
+remove(k);  // O(N)
+find(X); // O(N)
+findKth(k); // O(1)
+printList(); // O(N)
+```
+
+### List Implemented With Linked Lists
+
+- Elements not stroed in continguos memory
+
+- ...
+
+Operations:
+
+```
+Insert(X,k); // O(1)
+remove(k);  // O(1)
+find(X); // O(N)
+findKth(k); // O(N)
+printList(); // O(N)
+```
+
+### Stack
+
+- Stack is a container where insert and remove take place only at the "top".
+
+Operations
+
+```
+push() // insert element on top of stack
+pop() // remove element from top of stack
+top() // return element at top of stack
+isEmpty() // true if nothing in stack, false otherwise
+```
+
+### Stack Application - Balancing Symbols
+
+GOAL: Make sure that all opening/closing pairs of symbols in input stream are balanced:
+
+- every { has a }, every ( has a ), every [ has a ].
+- The clostings do not "isolate" an opening.
+- Legal sequences: "{[()]}", "{{()[][(){}][[[]]]}}"
+- Leet code problem 20.
+
+### Stack Application - Postfix Evaluation
+
+Postfix Expressions
+
+- The operator is listed after the operands, not between them:
+  - 25+ = 7, 825+_=8_(2+5) = 56, 82*5+ = (8*2) + 5 = 21, ...
+- Can be evaluated using a stack:
+  ```
+  tok = next symbol in input
+  if(tok is a nullptr)
+  {
+  	push tok;
+  }
+  else
+  {
+  	pop val1;
+  	pop val2;
+  	push(val2 <operator specified by tok> val1);
+  }
+  ```
+
+### Stack Implementation
+
+Could implement the stack with:
+
+- Array
+  - Bounded, so limited stack size
+- Linked List
+  - Unbounded
+  - But perhaps more complex
+    - Unless you just use/inherit the STL list
