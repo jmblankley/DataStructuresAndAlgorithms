@@ -1,17 +1,20 @@
 #ifndef _STACK_HPP_
 #define _STACK_HPP_
 
-#include <iostream>
 #include <list>
-using namespace std;
+#include <string>
 
-template <class T>
-class Stack : private list<string>
+class Stack : private std::list<std::string>
 {
 public:
-	void push(const string &str);
-	string pop();
-	bool isEmpty() const;
+  Stack() {} 
+
+  void push (const std::string &str);
+  std::string pop();
+
+  bool isEmpty() const;
 };
+
+
 
 #endif

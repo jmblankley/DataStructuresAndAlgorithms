@@ -1,22 +1,27 @@
+#include "Stack.hpp"
+
 #include <iostream>
-#include <stack>
-#include "GenericStack.hpp"
+
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-	Stack<string> stk;
+  Stack myStack;
 
-	for (int i = 1; i < argc; i++)
-	{
-		stk.push(argv[i]);
-	}
 
-	while (!stk.isEmpty())
-	{
-		string val = stk.pop();
-		cout << val << endl;
-	}
+  
+  for (int index=1; index<argc; index++)
+    {
+      myStack.push(argv[index]);
+    }
 
-	return 0;
+  //myStack.push_back("gotcha!");
+  
+  while (!myStack.isEmpty())
+    {
+      string val = myStack.pop();
+      cout << val << endl;
+    }
+
+  return 0;
 }

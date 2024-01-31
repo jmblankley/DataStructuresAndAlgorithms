@@ -559,3 +559,42 @@ Could implement the stack with:
   - Unbounded
   - But perhaps more complex
     - Unless you just use/inherit the STL list
+
+### Queue
+
+- Queue is a container where
+  - Insert takes place at back,
+  - but remove takes place at the front
+- Operations
+  - _Enqueue_ (insert) element at the back of the queue
+  - _Dequeue_ (remove and return) element from the fron tof the queue
+- FIFO
+  - First in First Out
+
+### Queue Applications
+
+- Job scheduling
+- Unix pipes
+- Graph traversals
+- Queuing theory simultions
+- Priority queues
+  - Not really FIFO queues
+  - Cannot be implemented like the above example
+
+### Queue Implementation
+
+- Array Version
+  - Bounded by size of array
+  - Usually a "circular buffer" is used
+    - The front may end up at an index greater than the end
+- Linked List Version
+  - Unbounded
+  - No "circular buffer" issues
+  - Must be able to manage dynamic memory
+    - Contiguous memory block (i.e. arrays) might be faster
+
+## Trees
+
+- Trees
+  - Note that trees do not have to be binary
+  - Each child can be thought of as a sub tree

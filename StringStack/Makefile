@@ -1,17 +1,8 @@
-CXX = g++
-CXXFLAGS = -std=c++11
-TARGET = stacker
+stacker: main.o Stack.o
+	g++ -o stacker main.o Stack.o
 
-all: $(TARGET)
+main.o: main.cpp Stack.cpp
+	g++ -c -Wall -ansi -pedantic -std=c++20 main.cpp
 
-$(TARGET): main.o Stack.o
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-main.o: main.cpp
-	$(CXX) $(CXXFLAGS) -c $<
-
-Stack.o: Stack.cpp
-	$(CXX) $(CXXFLAGS) -c $<
-
-clean:
-	rm -f $(TARGET) *.o
+Stack.o: Stack.cpp Stack.hpp
+	g++ -c -Wall -ansi -pedantic -std=c++20 Stack.cpp
