@@ -107,6 +107,12 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
   }
   else if (_operation == "call") /////  HERE IS WHERE YOU NEED TO START ADDING CODE TO EXECUTE
   {
+    string funcName;
+
+    ActivationRecord *ar = new ActivationRecord(funcName, nextAddr, __paramValue);
+    withStack.push(ar);
+
+    return nextAddr;
   }
   else
   {

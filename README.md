@@ -598,3 +598,31 @@ Could implement the stack with:
 - Trees
   - Note that trees do not have to be binary
   - Each child can be thought of as a sub tree
+
+### Expression Trees
+
+- Constructing an expression tree from postfix notation:
+  - Use a stack of pointers to binary trees
+  - Read postfix expression left to right
+  - If operand, then push on stack
+  - If operator, then
+    - Create a Binary Tree node with operator as the element
+    - Pop top two items off stack
+    - Insert these items as left and right child of new node
+    - Push pointer to node on the stack
+
+### Binary Seach Tree
+
+- We want to support the following operations:
+  - bool contains(Object elementToFind)
+  - Object maxElement()
+  - Object minElement()
+  - bool insert(Object newElement)
+  - bool remove(Object existingElement)
+- Analysis - Average Case
+  - Complexity of Contain, FindMax, FindMin, Insert, Remove is O(d) where d is the depth of the tree.
+
+### Balanced BSTs
+
+- AVL Tree
+  - Height of left and right subtrees at every node in BST ...
