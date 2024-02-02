@@ -107,12 +107,67 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
   }
   else if (_operation == "call") /////  HERE IS WHERE YOU NEED TO START ADDING CODE TO EXECUTE
   {
-    string funcName;
+    // get the function name
+    string funcName = _operands.front();
 
+    // construct ActivationRecord with function name, nextAddr, and the parameter value then push to stack
     ActivationRecord *ar = new ActivationRecord(funcName, nextAddr, __paramValue);
     withStack.push(ar);
 
-    return nextAddr;
+    // Get first statement number
+    Function func = ft.lookup(funcName);
+    int newAddr = func.firstInstruction();
+
+    // Update nextAddr with the new address
+    nextAddr = newAddr;
+  }
+  else if (_operation == "ret")
+  {
+    // pop the top item from the stack
+    ActivationRecord *popped = withStack.pop();
+
+    // get the return address for this ActivationRecord
+    int addr = popped->returnAddress();
+
+    // updated nextAddr with the return address from the popped ActivationRecord
+    nextAddr = addr;
+  }
+  else if (_operation == "retv")
+  {
+    // place it into the “incoming return value” of the Activation Record found one beneath the top element found on the stack
+    string op = _operands.front();
+    ActivationRecord *peeker = withStack.peek();
+    peeker->incomingReturnValue() = stoi(op);
+
+    // pop the ActivationRecord from the stack
+    ActivationRecord *popped = withStack.pop();
+
+    // update nextAddr to the return address from the popped ActivationRecord
+    int addr = popped->returnAddress();
+    nextAddr = addr;
+  }
+  else if (_operation == "storet")
+  {
+    // get operand
+    string op = _operands.front();
+
+    // get AR from the top of the stack
+    ActivationRecord *top = withStack.top();
+
+    // set incoming return value to the operand
+    top->incomingReturnValue() = stoi(op);
+  }
+  else if (_operation == "param")
+  {
+    __paramValue = stoi(_operands.front());
+  }
+  else if (_operation == "sub")
+  {
+    string a = _operands.front();
+    auto sec = next(_operands.begin(), 1);
+    string b = *sec;
+    auto third = next(_operands.begin(), 2);
+    string c = *third;
   }
   else
   {
