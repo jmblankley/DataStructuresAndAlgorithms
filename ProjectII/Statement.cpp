@@ -163,11 +163,27 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
   }
   else if (_operation == "sub")
   {
-    string a = _operands.front();
+    int a = stoi(_operands.front());
     auto sec = next(_operands.begin(), 1);
-    string b = *sec;
-    auto third = next(_operands.begin(), 2);
-    string c = *third;
+    int b = stoi(*sec);
+
+    int c = a - b;
+  }
+  else if (_operation == "add")
+  {
+    int a = stoi(_operands.front());
+    auto sec = next(_operands.begin(), 1);
+    int b = stoi(*sec);
+
+    int c = a + b;
+  }
+  else if (_operation == "mul")
+  {
+    int a = stoi(_operands.front());
+    auto sec = next(_operands.begin(), 1);
+    int b = stoi(*sec);
+
+    int c = a * b;
   }
   else
   {

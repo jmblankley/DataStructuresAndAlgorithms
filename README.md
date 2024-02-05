@@ -625,4 +625,39 @@ Could implement the stack with:
 ### Balanced BSTs
 
 - AVL Tree
-  - Height of left and right subtrees at every node in BST ...
+  - Height of left and right subtrees at every node in BST differ by at most 1
+  - Maintained via _rotations_.
+  - AVL Tree height always O(log N)
+- Splay Tree
+  - After a node is accessed, push it to the root via AVL rotations
+  - Average depth per operation is O(log N)
+
+### AVL Trees
+
+- AVL (Adelson-Velskii and Landis, 1962)
+- For every node in the BST, the heights of its left and right subtrees differ by at most 1
+- Height of AVL BST is O(log N)
+- Goal: All tree operations can be performed in O(logN) time.
+- For now, do "lazy deletion".
+
+### AVL Tree Height
+
+- Height of AVL BST is BigTheta(log N)
+  - Maximum number of nodes N = F(h) in AVL tree of height h:
+    - F(h) = F(h - 1) + F(h - 1) + 1, F(0) = 1
+    - F(h) = O(2^h)
+      - So, since N = F(h) = O(2^h), h = BigOmega(log N)
+  - Minimum number of nodes N = F(h) in AVL tree of height h:
+    - F(h) = F(h - 1) + F(h - 2) + 1, F(0) = 1, F(1) = 2
+    - Similar to the Fibbonacci sequence, so F(h) = BigTheta(1.44^h)
+      - So, since N = F(h), h = O(log N)
+      - Acutally, h ~= 1.44log(N + 2) - 1.328
+
+### AVL Insertion
+
+- Insertion can upset the balance
+- Can be fixed by _rotation_.
+- Core Idea:
+  - Only nodes along path to insertion have their balance altered
+  - Follow path back to root, looking for violations
+  - Fix violation using single or double "rotation"
