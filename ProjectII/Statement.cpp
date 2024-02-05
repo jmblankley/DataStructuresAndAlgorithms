@@ -185,6 +185,45 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 
     int c = a * b;
   }
+  else if (_operation == "div")
+  {
+    int a = stoi(_operands.front());
+    auto sec = next(_operands.begin(), 1);
+    int b = stoi(*sec);
+
+    int c = a / b;
+  }
+  else if (_operation == "skipz")
+  {
+    int zero = stoi(_operands.front());
+    auto sec = next(_operands.begin(), 1);
+    int numToSkip = stoi(*sec);
+
+    if (zero == 0)
+    {
+      nextAddr += numToSkip;
+    }
+  }
+  else if (_operation == "skipnz")
+  {
+    int zero = stoi(_operands.front());
+    if (zero == 0)
+    {
+      auto sec = next(_operands.begin(), 1);
+      int numToSkip = stoi(*sec);
+
+      nextAddr += numToSkip;
+    }
+  }
+  else if (_operation == "read")
+  {
+    string input;
+    cin >> input;
+
+    ActivationRecord *read = withStack.pop();
+
+    setValue(read, input, nextAddr);
+  }
   else
   {
     cout << _operation << ": not implememnted" << endl;
