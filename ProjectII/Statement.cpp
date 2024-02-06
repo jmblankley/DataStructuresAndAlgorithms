@@ -155,11 +155,12 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
     ActivationRecord *top = withStack.top();
 
     // set incoming return value to the operand
-    top->incomingReturnValue() = stoi(op);
+    op = top->incomingReturnValue();
   }
   else if (_operation == "param")
   {
-    __paramValue = stoi(_operands.front());
+    ActivationRecord *in = withStack.top();
+    __paramValue = in->parameterValue();
   }
   else if (_operation == "sub")
   {
@@ -168,6 +169,12 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
     int b = stoi(*sec);
 
     int c = a - b;
+
+    ActivationRecord *in = withStack.top();
+    auto third = next(_operands.begin(), 2);
+    string varName = *third;
+
+    setValue(in, varName, c);
   }
   else if (_operation == "add")
   {
@@ -217,12 +224,14 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
   }
   else if (_operation == "read")
   {
-    string input;
+    string varName = _operands.front();
+
+    int input;
     cin >> input;
 
-    ActivationRecord *read = withStack.pop();
+    ActivationRecord *in = withStack.top();
 
-    setValue(read, input, nextAddr);
+    setValue(in, varName, input);
   }
   else
   {

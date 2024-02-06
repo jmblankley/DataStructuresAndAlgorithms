@@ -1,5 +1,6 @@
 func main
-     printS  Enter a value:
+     printS  Enter a value: 
      read    var
      printN  var
+     printNL
      exit
