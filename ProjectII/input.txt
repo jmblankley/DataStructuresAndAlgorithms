@@ -1,11 +1,6 @@
 func main
-	sub one,two,three
 	printS hello world
 	printNL
-	call this
-	exit
-
-func this
-	printS called this function
-	printNL
+	sub 7, 1, var
+	printN var
 	exit

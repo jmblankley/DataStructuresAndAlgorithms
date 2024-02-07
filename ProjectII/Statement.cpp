@@ -171,6 +171,7 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
     int c = a - b;
 
     ActivationRecord *in = withStack.top();
+
     auto third = next(_operands.begin(), 2);
     string varName = *third;
 
