@@ -191,6 +191,10 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
     int b = stoi(*sec);
 
     int c = a + b;
+
+    string varName = *next(_operands.begin(), 2);
+
+    setValue(withStack.top(), varName, c);
   }
   else if (_operation == "mul")
   {
@@ -199,6 +203,10 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
     int b = stoi(*sec);
 
     int c = a * b;
+
+    string varName = *next(_operands.begin(), 2);
+
+    setValue(withStack.top(), varName, c);
   }
   else if (_operation == "div")
   {
@@ -207,6 +215,10 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
     int b = stoi(*sec);
 
     int c = a / b;
+
+    string varName = *next(_operands.begin(), 2);
+
+    setValue(withStack.top(), varName, c);
   }
   else if (_operation == "skipz")
   {

@@ -1,9 +1,6 @@
 func main
      printS  Enter a value: 
-     read    var
-     call other
+     read var
+     printN var
      printNL
      exit
-
-func other
-     printN var
