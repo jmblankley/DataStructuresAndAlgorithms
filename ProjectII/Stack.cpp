@@ -25,7 +25,8 @@ ActivationRecord *Stack::pop()
 
 ActivationRecord *Stack::top() const
 {
-	return front();
+	ActivationRecord *first = front();
+	return first;
 }
 
 ActivationRecord *Stack::peek() const

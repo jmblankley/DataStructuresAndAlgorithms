@@ -170,12 +170,13 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 
     int c = a - b;
 
-    ActivationRecord *in = withStack.top();
+    string varName = *next(_operands.begin(), 2);
 
-    auto third = next(_operands.begin(), 2);
-    string varName = *third;
+    cout << varName << endl;
+    cout << c << endl;
 
-    setValue(in, varName, c);
+    setValue(withStack.top(), varName, c);
+    cout << "here: " << getValue(withStack.top(), varName) << endl;
   }
   else if (_operation == "add")
   {

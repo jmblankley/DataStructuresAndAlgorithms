@@ -3,4 +3,5 @@ func main
 	printNL
 	sub 7, 1, var
 	printN var
+	printNL
 	exit
