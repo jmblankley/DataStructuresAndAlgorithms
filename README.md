@@ -661,3 +661,9 @@ Could implement the stack with:
   - Only nodes along path to insertion have their balance altered
   - Follow path back to root, looking for violations
   - Fix violation using single or double "rotation"
+- Assume node k needs to be balanced
+  - Four cases leading to violation
+    1. An insertion into the left subtree of the left child of k
+    2. An insertion into the right subtree of the left child of k
+    3. An insertion into the left subtree of the right child of k
+    4. An inserstion into the right subtree of the right child of k
