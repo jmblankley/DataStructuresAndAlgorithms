@@ -105,22 +105,29 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
   {
     cout << endl; // yep, it's that simple!
   }
-  else if (_operation == "call") /////  HERE IS WHERE YOU NEED TO START ADDING CODE TO EXECUTE
+  else if (_operation == "call")
   {
-    // get the function name
+    // Get the function name
     string funcName = _operands.front();
 
-    // construct ActivationRecord with function name, nextAddr, and the parameter value then push to stack
-    ActivationRecord *ar = new ActivationRecord(funcName, nextAddr, __paramValue);
+    // Get the next statement number
+    int nextStatementNumber = nextAddr;
+
+    // Construct ActivationRecord with function name, next statement number, and parameter value, then push it onto the stack
+    ActivationRecord *ar = new ActivationRecord(funcName, nextStatementNumber, __paramValue);
     withStack.push(ar);
 
-    // Get first statement number
+    // Get the first statement number of the called function from the FunctionTable
     Function func = ft.lookup(funcName);
     int newAddr = func.firstInstruction();
 
-    // Update nextAddr with the new address
+    // Update nextAddr to the first statement number of the called function
     nextAddr = newAddr;
+
+    // Set the return value to be the first statement number in the called function
+    return nextAddr;
   }
+
   else if (_operation == "ret")
   {
     // pop the top item from the stack
@@ -148,19 +155,22 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
   }
   else if (_operation == "storet")
   {
-    // get operand
-    string op = _operands.front();
+    // Get the operand
+    string operand = _operands.front();
 
-    // get AR from the top of the stack
-    ActivationRecord *top = withStack.top();
+    // Get the incoming return value from the top Activation Record on the stack
+    int incomingReturnValue = withStack.top()->incomingReturnValue();
 
-    // set incoming return value to the operand
-    op = top->incomingReturnValue();
+    // Set the value of the operand to be equal to the incoming return value
+    setValue(withStack.top(), operand, incomingReturnValue);
   }
   else if (_operation == "param")
   {
-    ActivationRecord *in = withStack.top();
-    __paramValue = in->parameterValue();
+    // Get the operand
+    string operand = _operands.front();
+
+    // Set the global variable __paramValue to be equal to the value of the operand
+    __paramValue = getValue(withStack.top(), operand);
   }
   else if (_operation == "sub")
   {
@@ -172,11 +182,7 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 
     string varName = *next(_operands.begin(), 2);
 
-    cout << varName << endl;
-    cout << c << endl;
-
     setValue(withStack.top(), varName, c);
-    cout << "here: " << getValue(withStack.top(), varName) << endl;
   }
   else if (_operation == "add")
   {
