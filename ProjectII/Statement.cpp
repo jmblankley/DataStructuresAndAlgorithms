@@ -253,6 +253,10 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 
     setValue(in, varName, input);
   }
+  else if (_operation == "dump")
+  {
+    cout << "dump operation" << endl;
+  }
   else
   {
     cout << _operation << ": not implememnted" << endl;

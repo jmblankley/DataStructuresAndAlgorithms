@@ -1,7 +1,16 @@
 func main
-	printS hello world
-	printNL
-	sub 7, 1, var
-	printN var
-	printNL
-	exit
+
+     printS  Enter a value:
+     read    var
+
+     param   var
+     storet  facVal
+
+     dump
+
+     printNL
+     printN  var
+     printS  !=
+     printN  facVal
+     printNL
+     exit
