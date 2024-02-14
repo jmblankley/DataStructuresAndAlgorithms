@@ -108,7 +108,7 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	else if (_operation == "call")
 	{
 		// Get the function name
-		string funcName = _operands.front();
+		string funcName = this->operands().front();
 
 		// Get the next statement number
 		int nextStatementNumber = nextAddr;
@@ -142,7 +142,7 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	else if (_operation == "retv")
 	{
 		// place it into the “incoming return value” of the Activation Record found one beneath the top element found on the stack
-		string op = _operands.front();
+		string op = this->operands().front();
 		ActivationRecord *peeker = withStack.peek();
 		peeker->incomingReturnValue() = stoi(op);
 
@@ -156,7 +156,7 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	else if (_operation == "storet")
 	{
 		// Get the operand
-		string operand = _operands.front();
+		string operand = this->operands().front();
 
 		// Get the incoming return value from the top Activation Record on the stack
 		int incomingReturnValue = withStack.top()->incomingReturnValue();
@@ -174,11 +174,11 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	}
 	else if (_operation == "sub")
 	{
-		int a = stoi(this->operands().front());
+		string a = this->operands().front();
 		auto sec = next(this->operands().begin(), 1);
-		int b = stoi(*sec);
+		string b = *sec;
 
-		int c = a - b;
+		int c = stoi(a) - stoi(b);
 
 		string varName = *next(_operands.begin(), 2);
 
@@ -186,11 +186,11 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	}
 	else if (_operation == "add")
 	{
-		int a = stoi(_operands.front());
+		string a = _operands.front();
 		auto sec = next(_operands.begin(), 1);
-		int b = stoi(*sec);
+		string b = *sec;
 
-		int c = a + b;
+		int c = stoi(a) + stoi(b);
 
 		string varName = *next(_operands.begin(), 2);
 
@@ -198,11 +198,11 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	}
 	else if (_operation == "mul")
 	{
-		int a = stoi(_operands.front());
+		string a = _operands.front();
 		auto sec = next(_operands.begin(), 1);
-		int b = stoi(*sec);
+		string b = *sec;
 
-		int c = a * b;
+		int c = stoi(a) * stoi(b);
 
 		string varName = *next(_operands.begin(), 2);
 
@@ -210,11 +210,11 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	}
 	else if (_operation == "div")
 	{
-		int a = stoi(_operands.front());
+		string a = _operands.front();
 		auto sec = next(_operands.begin(), 1);
-		int b = stoi(*sec);
+		string b = *sec;
 
-		int c = a / b;
+		int c = stoi(a) / stoi(b);
 
 		string varName = *next(_operands.begin(), 2);
 
@@ -222,8 +222,8 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	}
 	else if (_operation == "skipz")
 	{
-		int zero = stoi(_operands.front());
-		auto sec = next(_operands.begin(), 1);
+		int zero = stoi(this->operands().front());
+		auto sec = next(this->operands().begin(), 1);
 		int numToSkip = stoi(*sec);
 
 		if (zero == 0)
@@ -233,12 +233,12 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	}
 	else if (_operation == "skipnz")
 	{
-		int zero = stoi(_operands.front());
-		if (zero == 0)
-		{
-			auto sec = next(_operands.begin(), 1);
-			int numToSkip = stoi(*sec);
+		string zero = this->operands().front();
+		auto sec = next(this->operands().begin(), 1);
+		int numToSkip = stoi(*sec);
 
+		if (zero != "0")
+		{
 			nextAddr += numToSkip;
 		}
 	}
