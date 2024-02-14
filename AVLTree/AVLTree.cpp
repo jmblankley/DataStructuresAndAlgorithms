@@ -175,6 +175,113 @@ AVLTree::insert(int newVal)
     _root=insertHelper(_root, newVal);
 }
 
+AVLTreeNode*
+removeHelper(int existingVal, AVLTreeNode *fromSubTree)
+{
+  // no subtree? no need to remove anything. 
+  if (!fromSubTree)
+    return nullptr;
+
+  // is node we need to remove in left subtree?
+  if (existingVal < fromSubTree->data())
+    {
+      // recursively remove from left subtree
+      fromSubTree->left() = removeHelper(existingVal, fromSubTree->left() );
+    }
+  else if (existingVal > fromSubTree->data())
+    {
+      // recursively remove from right subtree
+      fromSubTree->right() = removeHelper(existingVal, fromSubTree->right() );
+    }
+  else // this is the node we want to remove!
+    {
+      if (fromSubTree->isLeaf())  // 0 children
+	{
+	  fromSubTree=nullptr;
+	}
+      else if (fromSubTree->left() && fromSubTree->right() ) // 2 children
+	{
+          // find the largest node in the left subtree ...
+	  AVLTreeNode *toDel = fromSubTree->left();
+	  while(toDel->right()!=nullptr)
+	    {
+	      toDel = toDel->right();
+	    }
+
+          // back up largest value in left subtree. 
+	  int valueToMove = toDel->data();
+
+          // remove node containing largest value in subtree ...
+	  fromSubTree->left()=removeHelper(valueToMove, fromSubTree->left());
+          if (fromSubTree->left()) 
+            fromSubTree->left()->parent() = fromSubTree;
+          // ... but place its value in the node we really want to "remove"
+	  fromSubTree->data() = valueToMove;
+	}
+      else // 1 child
+	{
+	  if (fromSubTree->left() ) // no right subtree since only 1 child
+          {
+            fromSubTree->left()->parent() = fromSubTree->parent();
+	    fromSubTree = fromSubTree->left();
+          }
+	  else // only have right child
+          {
+            fromSubTree->right()->parent() = fromSubTree->parent();
+	    fromSubTree = fromSubTree->right();
+          }
+	}
+      
+    }
+
+  // no tree left? return NULL
+  if (!fromSubTree)
+    return nullptr;
+  
+  // rebalance now if needed
+  int balance = getHeight(fromSubTree->left()) -
+                getHeight(fromSubTree->right()) ;
+
+  // is the left subtree of height more than 2 bigger than right subtree
+  if (balance==2)
+    {
+      int subBalance = getHeight(fromSubTree->left()->left()) -
+	               getHeight(fromSubTree->left()->right());
+
+      // left-left issue
+      if (subBalance >= 0)
+	{
+	  fromSubTree = rotateRight(fromSubTree);
+	}
+      else // left-right issue
+	{
+	  fromSubTree = doubleWithLeftChild(fromSubTree);
+	}
+    }
+  
+  // is the right subtree of height more than 2 bigger than left subtree
+  if (balance==-2)
+    {
+      int subBalance = getHeight(fromSubTree->right()->left()) -
+	               getHeight(fromSubTree->right()->right());
+
+      // right-right issue
+      if (subBalance < 0)
+	{
+	  fromSubTree = rotateLeft(fromSubTree);
+	}
+      else // left-right issue
+	{
+	  fromSubTree = doubleWithRightChild(fromSubTree);
+	}
+    }
+
+  // might have changed heights of children, so update subtree's height
+  fromSubTree->height() = 1 + max( getHeight(fromSubTree->left()) ,
+				   getHeight(fromSubTree->right()) );
+  
+  return fromSubTree;
+}
 
 
 
@@ -188,79 +295,7 @@ AVLTree::remove(int existingVal)
             << endl;
         return;
     }
-    // case 1: no children ...
-    if (toDel->isLeaf())
-    {
-        // special case
-        if (toDel == _root)
-        {
-            _root=nullptr;
-            return;
-        }
-        AVLTreeNode *parent = toDel->parent();
-
-        if (parent->left() == toDel)
-            parent->left() = nullptr;
-        else // must be on the right
-            parent ->right() = nullptr;
-
-        // following is not strictly necessary ...
-        //    .. but lets "clean up" toDel
-        toDel->parent() = nullptr;
-        delete toDel;  // depending on application, don't do this
-        return;
-    }
-    // case 2: one children
-    else if ( ( toDel->right() && !toDel->left() ) ||
-              ( toDel->left() && !toDel->right() )
-            )
-    {
-        if (toDel==_root)
-        {
-            if (toDel->left())
-                _root=toDel->left();
-            else
-                _root=toDel->right();
-
-            _root->parent() = nullptr;
-            return;
-        }
-
-        AVLTreeNode *subTree;
-        if (toDel->left())
-            subTree=toDel->left();
-        else
-            subTree=toDel->right();
-
-        AVLTreeNode *parent = toDel->parent();
-        if (parent->left() == toDel)
-            parent->left() = subTree;
-        else
-            parent->right() = subTree;
-
-        subTree->parent() = parent;
-
-        // following is not strictly necessary ...
-        //    .. but lets "clean up" toDel
-        toDel->left() = toDel->right() = nullptr;
-        toDel->parent() = nullptr;
-        delete toDel;  // depending on application, don't do this
-    }
-    // case 3: two children
-    else
-    {
-        // hop once to the right
-        AVLTreeNode *curr = toDel->right();
-        // go as far left as you can ...
-        while (curr->left() )
-            curr=curr->left();
-
-        int valToSave = curr->data();
-        remove(valToSave);
-        toDel->data() = valToSave;
-        return;
-    }
-
+    _root=removeHelper(existingVal, _root);
 }
 
 

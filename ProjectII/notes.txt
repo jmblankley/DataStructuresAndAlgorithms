@@ -1,0 +1,2 @@
+- Will  need to use FunctionTable classes lookup method.
+- Will need first instruction from Function class

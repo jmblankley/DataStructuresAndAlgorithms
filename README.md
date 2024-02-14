@@ -667,3 +667,16 @@ Could implement the stack with:
     2. An insertion into the right subtree of the left child of k
     3. An insertion into the left subtree of the right child of k
     4. An inserstion into the right subtree of the right child of k
+
+## Greedy Algorithms
+
+### The Interval Scheduling Problem
+
+- Interval Scheduling:
+  - Job j starts at s_j finishes at f_j.
+  - Two jobs ...
+- Greedy Algorithm Ideas
+  - Greedy Template: Consider jobs in some order. Take each job provided it's compatible with the ones already taken.
+    - [Earliest Start Time] Consider jobs ascending order ...
+    - ...
+    - ...

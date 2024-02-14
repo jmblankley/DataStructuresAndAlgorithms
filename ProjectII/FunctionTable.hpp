@@ -18,17 +18,16 @@
 class FunctionTable
 {
 private:
-  std::set<Function> _table; // use STL set to keep a collection of functions
+	std::set<Function> _table; // use STL set to keep a collection of functions
 public:
+	// given a function name, find full function info ...
+	const Function &lookup(const std::string name) const;
 
-  // given a function name, find full function info ...
-  const Function& lookup(const std::string name) const;
+	// add a function to our collection
+	void add(const Function &f) { _table.insert(f); }
 
-  // add a function to our collection 
-  void add(const Function &f) {_table.insert(f);}
-
-  // overload output stream for a FunctionTable. 
-  friend std::ostream& operator<<(std::ostream &os, const FunctionTable &ft);
+	// overload output stream for a FunctionTable.
+	friend std::ostream &operator<<(std::ostream &os, const FunctionTable &ft);
 };
 
 #endif
