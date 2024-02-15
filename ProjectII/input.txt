@@ -3,30 +3,30 @@ func factorial
 	printNL
 
 	skipnz  $$,2
-	dump
-     	retv    1
+    dump
+    retv    1
 
-	sub     $$,1,nm1
-	param   nm1
-     	call    factorial
-     	storet  recVal
-    	mul     recVal,$$,answer
-     	retv    answer
+    sub     $$,1,nm1
+    param   nm1
+    call    factorial
+    storet  recVal
+    mul     recVal,$$,answer
+    retv    answer
 
 func main
 
-     printS  Enter a value:
-     read    var
+    printS  Enter a value:
+    read    var
 
-     param   var
-     call    factorial
-     storet  facVal
+    param   var
+    call    factorial
+    storet  facVal
 
-     dump
+    dump
 
-     printNL
-     printN  var
-     printS  !=
-     printN  facVal
-     printNL
-     exit
+    printNL
+    printN  var
+    printS  !=
+    printN  facVal
+    printNL
+    exit

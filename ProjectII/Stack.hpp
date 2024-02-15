@@ -1,9 +1,10 @@
 /********************************************************
  * File:Stack.hpp                                       *
- * Author: (TBD)                                        *
+ * Author: Joshua M Blankley                            *
  * Date: 1/2024                                         *
  * Purpose: Declaration for a Stack of ActivationRecord *
- *      *pointers*.                                     *
+ *      *pointers*.  My contributions were an update to	*
+ * 		the existing codebase.                          *
  ********************************************************/
 #ifndef _STACK_HPP_
 #define _STACK_HPP_
@@ -15,30 +16,30 @@
 
 // This one is 100% up to you, other than the public interface
 //   implementing what you see here!!!!
-class Stack:private std::list<ActivationRecord*>
+class Stack : private std::list<ActivationRecord *>
 {
 public:
-  // default constructor should give empty stack ...
-  
-  // remove *and* return top element in stack
-  ActivationRecord* pop();
+	// default constructor should give empty stack ...
 
-  // "push" a new element onto the (top of the) stack
-  void push(ActivationRecord *newAR);
+	// remove *and* return top element in stack
+	ActivationRecord *pop();
 
-  // return top element from stack *without* removing it. 
-  ActivationRecord* top() const;
+	// "push" a new element onto the (top of the) stack
+	void push(ActivationRecord *newAR);
 
-  // return next to top element from stack *without* removing any elements. 
-  ActivationRecord* peek() const;
+	// return top element from stack *without* removing it.
+	ActivationRecord *top() const;
 
-  // returns true if there are no elements in teh stack,
-  //         false if the stack contains at least one element.
-  bool isEmpty() const;
+	// return next to top element from stack *without* removing any elements.
+	ActivationRecord *peek() const;
 
-  // print out the stack element, from top to bottom ... one ActivationRecord
-  //   at a time (don't print the pointer values.)
-  friend std::ostream& operator<<(std::ostream &os, const Stack &s);
+	// returns true if there are no elements in teh stack,
+	//         false if the stack contains at least one element.
+	bool isEmpty() const;
+
+	// print out the stack element, from top to bottom ... one ActivationRecord
+	//   at a time (don't print the pointer values.)
+	friend std::ostream &operator<<(std::ostream &os, const Stack &s);
 };
 
 #endif

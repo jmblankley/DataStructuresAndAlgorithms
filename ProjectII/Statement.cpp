@@ -1,7 +1,15 @@
-// !!!!!! You will have to add code inside of this class. Some of
-//        the code provided here is designed to help you, but you
-//         do not need to use it if you do not want to.
-
+/******************************************************************************
+ *
+ * File:        Statement.cpp
+ * Author:      Joshua M Blankley
+ * Date: 		2/2024
+ * Purpose:     Implementation of the execute function for Statement class.
+ *              This file contains the implementation of the execute function
+ *              and associated helper functions to execute statements based on
+ *              their operation and operands. These changes are an update to
+ * 				the exisitng codebase.
+ *
+ ******************************************************************************/
 #include "Statement.hpp"
 
 #include <cstdlib>
@@ -11,7 +19,7 @@
 using namespace std;
 
 int __nextSnum = 0; // keeps track of the next statement number to use.
-int __paramValue;   // this is a global to help with passing a parameter.
+int __paramValue;	// this is a global to help with passing a parameter.
 
 /****
  **** If you are following project specifications, then you will likley
@@ -36,7 +44,7 @@ int getValue(ActivationRecord *ar, const std::string &operand)
 		if (var == NULL)
 		{
 			cerr << "Attempt to use an uninitialized variable: "
-			     << operand << endl;
+				 << operand << endl;
 			return 0;
 		}
 		else
@@ -144,7 +152,7 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 		// place it into the “incoming return value” of the Activation Record found one beneath the top element found on the stack
 		string op = this->operands().front();
 		ActivationRecord *peeker = withStack.peek();
-		peeker->incomingReturnValue() = stoi(op);
+		peeker->incomingReturnValue() = getValue(withStack.top(), op);
 
 		// pop the ActivationRecord from the stack
 		ActivationRecord *popped = withStack.pop();
@@ -174,88 +182,119 @@ int Statement::execute(Stack &withStack, const FunctionTable &ft) const
 	}
 	else if (_operation == "sub")
 	{
+		// Get the operands from the statement
 		string a = this->operands().front();
 		auto sec = next(this->operands().begin(), 1);
 		string b = *sec;
 
-		int c = stoi(a) - stoi(b);
+		// Subtract the values obtained from the stack
+		int c = getValue(withStack.top(), a) - getValue(withStack.top(), b);
 
+		// Get the variable name to store the result
 		string varName = *next(_operands.begin(), 2);
 
+		// Set the value of the variable with the result
 		setValue(withStack.top(), varName, c);
 	}
 	else if (_operation == "add")
 	{
+		// Get the operands from the statement
 		string a = _operands.front();
 		auto sec = next(_operands.begin(), 1);
 		string b = *sec;
 
-		int c = stoi(a) + stoi(b);
+		// Add the values obtained from the stack
+		int c = getValue(withStack.top(), a) + getValue(withStack.top(), b);
 
+		// Get the variable name to store the result
 		string varName = *next(_operands.begin(), 2);
 
+		// Set the value of the variable with the result
 		setValue(withStack.top(), varName, c);
 	}
 	else if (_operation == "mul")
 	{
+		// Get the operands from the statement
 		string a = _operands.front();
 		auto sec = next(_operands.begin(), 1);
 		string b = *sec;
 
-		int c = stoi(a) * stoi(b);
+		// Multiply the values obtained from the stack
+		int c = getValue(withStack.top(), a) * getValue(withStack.top(), b);
 
+		// Get the variable name to store the result
 		string varName = *next(_operands.begin(), 2);
 
+		// Set the value of the variable with the result
 		setValue(withStack.top(), varName, c);
 	}
 	else if (_operation == "div")
 	{
+		// Get the operands from the statement
 		string a = _operands.front();
 		auto sec = next(_operands.begin(), 1);
 		string b = *sec;
 
-		int c = stoi(a) / stoi(b);
+		// Divide the values obtained from the stack
+		int c = getValue(withStack.top(), a) / getValue(withStack.top(), b);
 
+		// Get the variable name to store the result
 		string varName = *next(_operands.begin(), 2);
 
+		// Set the value of the variable with the result
 		setValue(withStack.top(), varName, c);
 	}
-	else if (_operation == "skipz")
+	else if (_operation == "div")
 	{
-		int zero = stoi(this->operands().front());
-		auto sec = next(this->operands().begin(), 1);
-		int numToSkip = stoi(*sec);
+		// Get the operands from the statement
+		string a = _operands.front();
+		auto sec = next(_operands.begin(), 1);
+		string b = *sec;
 
-		if (zero == 0)
-		{
-			nextAddr += numToSkip;
-		}
+		// Divide the values obtained from the stack
+		int c = getValue(withStack.top(), a) / getValue(withStack.top(), b);
+
+		// Get the variable name to store the result
+		string varName = *next(_operands.begin(), 2);
+
+		// Set the value of the variable with the result
+		setValue(withStack.top(), varName, c);
 	}
 	else if (_operation == "skipnz")
 	{
-		string zero = this->operands().front();
+		// Get the operands from the statement
+		string firstOp = this->operands().front();
 		auto sec = next(this->operands().begin(), 1);
-		int numToSkip = stoi(*sec);
+		string secOp = *sec;
 
-		if (zero != "0")
+		// Get the values from the stack
+		int zero = getValue(withStack.top(), firstOp);
+		int numToSkip = getValue(withStack.top(), secOp);
+
+		// If the first operand is not zero, skip the specified number of statements
+		if (zero != 0)
 		{
 			nextAddr += numToSkip;
 		}
 	}
 	else if (_operation == "read")
 	{
+		// Get the variable name from the statement
 		string varName = this->operands().front();
 
+		// Read an integer value from the user
 		int input;
 		cin >> input;
 
+		// Set the value of the specified variable in the top ActivationRecord
 		ActivationRecord *in = withStack.top();
-
 		setValue(in, varName, input);
 	}
 	else if (_operation == "dump")
 	{
-		cout << "dump operation" << endl;
+		// printing out the stack
+		cout << endl
+			 << withStack << endl;
 	}
 	else
 	{

@@ -1,4 +1,11 @@
-// Your implementation of the Stack class goes here!!!!
+/********************************************************
+ * File:Stack.cpp                                       *
+ * Author: Joshua M Blankley                            *
+ * Date: 1/2024                                         *
+ * Purpose: Implementation of the Stack class.			*
+ *      	My contributions were an update to			*
+ * 			the existing codebase.                      *
+ ********************************************************/
 
 #include "Stack.hpp"
 
