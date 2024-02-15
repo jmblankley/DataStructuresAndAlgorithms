@@ -54,7 +54,7 @@ func main
 
 Terminal:
 ```console
-./project1 5_factorial.txt
+./p2 5_factorial.txt
 Enter a value: 5
 
 5!=120
