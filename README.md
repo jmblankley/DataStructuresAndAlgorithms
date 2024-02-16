@@ -677,6 +677,25 @@ Could implement the stack with:
   - Two jobs ...
 - Greedy Algorithm Ideas
   - Greedy Template: Consider jobs in some order. Take each job provided it's compatible with the ones already taken.
-    - [Earliest Start Time] Consider jobs ascending order ...
-    - ...
-    - ...
+    - [Earliest Start Time] Consider jobs ascending order
+
+### Interval Partitioning: Lower Bound on Optimal Solution
+
+- The depth of a set of open intervals is the maximum number that contain any given time
+- Key Observation: Number of classrooms needed >= depth.
+- Ex. Depth of schedule below = 3 => schedul ebelow is optimal.
+- Q: Does there always exist a schedule equal to depth of intervals?
+
+### Interval Partitioning: Greedy Algorithm
+
+- Consider lecutres in increasing order of start time: assign lecture to any compatible classroom.
+- This implementation in O(n log n).
+
+### Interval Partitioning: Greedy Analysis
+
+- Observation: Greedy algorithm never schedules two incompatible lectures in the same classroom.
+- Theorem: Greedy algorithm is optimal.
+- Proof:
+  - Let d = number of classrooms that the greedy algorithm allocates.
+  - Classroom d is openened because we needed to schedule a job, say j, that is incompatible with all d-1 other classrooms.
+  - Since we sorted by start time, all theses incompatibilities ...

@@ -29,9 +29,9 @@ public:
 
   // two options for oututting a stream
   //   print - outputs the actual privtae field values
-  std::ostream &print(std::ostream &os) const;
+  std::ostream &print(std::ostream &os=std::cout) const;
   //   dispaly - outputs name and then dispplays interval as a bar
-  std::ostream &display(std::ostream &os) const;
+  std::ostream &display(std::ostream &os=std::cout) const;
 
   // overloaded I/O operators
   friend std::ostream&  operator<< (std::ostream &os, const Interval &iv);
