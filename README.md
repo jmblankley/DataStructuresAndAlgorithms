@@ -716,3 +716,60 @@ Could implement the stack with:
 - Greedy Template:
   - Consider jobs in some order
   - [Shortest Processing Time First] Consider jobs in ascending order of processing time t_j.
+
+## Divide and Conquer Algorithms
+
+### Divide and Conquer Algorithm
+
+- Divide and Conquer
+  - Break up into subproblems
+  - Solve each part recursively
+  - Combine solutions to sub-problems into overall solution
+- Most Common Usage
+  - Break up problem of size n into two equal parts of size 1/2n
+  - Solve two parts recursively
+  - Combine two solutions into overall solution in linear time
+- Consequence
+  - Brute force: O(n^2)
+  - Divide and conquer: O(nlogn)
+
+### Merge Sort
+  
+- Divide array into two havles
+- Recursively sort each half
+- Merge two havles to make sorted whole
+
+### Merging
+
+- Merging
+  - Combine two pre-sorted lists into a sorted whole
+- How to merge efficiently?
+  - Linear number of comparisons.
+  - User temporary array
+- Merge
+  - Keep track of smallest element in each sorted half
+  - Insert smallest of two elements into auxiliary array
+  - Repeat until done
+
+### A Useful Recurrence Relation
+
+- T(n) = number of comparisons to mergesort an input of size n
+- Mergesort recurrence
+- Solution: T(n) = O(nlogn)
+- Assorted proofs. Several ways to prove this securrence. Initially we assume n is a power of 2 and replace <= with =.
+
+### Counting Inversions
+
+- Music site tries to match your song preferences with others
+  - You rank n songs
+  - Music site consults databae to find people with similar tastes
+- Similarity metric: number of inversions between two rankings
+  - My rank: 1, 2, ..., n
+  - Your rank: a1, a2, ..., aN
+  - Songs i and j inverted if i < j, but ai > aj
+- Brute Force
+  - Check all BigTheta(n^2) pairs i and j
+- Divide and conquer
+  - Separate into two pieces
+  - Conquer: recursively count inversions in each half
+  - Combine: Count inversions where ai and aj are in different halves, and ...
