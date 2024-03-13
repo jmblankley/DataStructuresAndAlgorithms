@@ -1,9 +1,9 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall
 
-SRCS = main.cpp Node.cpp
+SRCS = main.cpp WasteItem.cpp
 OBJS = $(SRCS:.cpp=.o)
-DEPS = Node.hpp
+DEPS = WasteItem.hpp
 
 .PHONY: all clean
 
