@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <list>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
@@ -75,21 +76,8 @@ void mergeSort(list<WasteItem> &wasteItems, list<WasteItem>::iterator left, list
     }
 }
 
-
 int main(int argc, char *argv[])
 {
-    /*****************************************************************************************************************************************
-    1. !!DONE!! Read the input file and store the toxic waste items in a list or array, each item containing the name, storage cost, and deadline.
-    2. !!DONE!! Sort the list of toxic waste items based on their deadlines in ascending order.
-    3. Initialize a variable `total_storage_cost` to 0.
-    4. Initialize a variable `current_day` to 1.
-    5. For each toxic waste item in the sorted list:
-        6. If the current day is greater than the deadline of the item:
-            7. Add the storage cost of the item to `total_storage_cost`.
-        8. Else:
-            9. Increment `current_day` by 1 and repeat step 6.
-    10. Output `total_storage_cost`.
-    ******************************************************************************************************************************************/
    
     if(argc < 2)
     {
@@ -119,29 +107,51 @@ int main(int argc, char *argv[])
 
     // 2. Sort the list of toxic waste items based on their deadlines in ascending order.
     mergeSort(wasteItems, wasteItems.begin(), wasteItems.end());
+    vector<WasteItem> wasteItemVec(wasteItems.begin(), wasteItems.end());
+    // Initialize maxDeadline to a value that ensures any deadline will be greater than it
+    int maxDeadline = 0;
 
+    // Iterate through the waste items to find the maximum deadline
+    for(const auto& item : wasteItemVec)
+    {
+        if(item.getDeadline() > maxDeadline)
+        {
+            maxDeadline = item.getDeadline();
+        }
+    }
     // initialize variables to keep track of the total storage cost as well as the current day
     int totalStorageCost = 0;
     int currDay = 1;
 
-    // 3. For each waste item in the list 
-    for(auto i : wasteItems)
-    {
-        // NEED TO ADD LOGIC TO CHECK WASTE ITEMS WITH THE SAME DEADLINES AND ONLY ADD THE SMALLER COST TO THE TOTAL STORAGE COST
-        /*** If the current day is greater than the deadline of the item add the storage cost of the item to the totalStorageCost ***/
-        if(currDay > i.getDeadline())
+    while (currDay <= maxDeadline) { 
+        vector<WasteItem> sameDeadline;
+
+        // Iterate through the waste items
+        for(int i = 0; i < wasteItemVec.size(); i++)
         {
-            totalStorageCost += i.getCost();
+            if(wasteItemVec[i].getDeadline() == currDay)
+            {
+                sameDeadline.push_back(wasteItemVec[i]);
+                totalStorageCost += wasteItemVec[i].getCost();
+            }
         }
-        else /*** Else, increment currDay by 1 and repeat ***/
-        {
-            currDay++;
+
+        // Check if there are items with the current day as the deadline
+        if (!sameDeadline.empty()) {
+            auto maxElement = std::max_element(sameDeadline.begin(), sameDeadline.end(), [](const WasteItem& a, const WasteItem& b) 
+            {
+                return a.getCost() < b.getCost();
+            });
+
+            // Subtract the cost of the item with the maximum cost from totalStorageCost
+            totalStorageCost -= maxElement->getCost();
         }
+
+        // Increment the current day
+        currDay++;
     }
 
     cout << totalStorageCost << endl;
-
-
 
     return 0;
 }
