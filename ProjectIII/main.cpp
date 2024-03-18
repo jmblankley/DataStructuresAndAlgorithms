@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // 1. Read the input file and store toxic waste items in a list/array/tree/heap.
+    // Read the input file and store toxic waste items in a list/array/tree/heap.
 
     string filename = argv[1]; // filename gotten from console
     ifstream inFile(filename); // ifstream created from filename
@@ -105,36 +105,33 @@ int main(int argc, char *argv[])
     // Close the input file
     inFile.close();
 
-    // 2. Sort the list of toxic waste items based on their deadlines in ascending order.
+    // Sort the list of toxic waste items based on their deadlines in ascending order.
     mergeSort(wasteItems, wasteItems.begin(), wasteItems.end());
     vector<WasteItem> wasteItemVec(wasteItems.begin(), wasteItems.end());
-    // Initialize maxDeadline to a value that ensures any deadline will be greater than it
-    int maxDeadline = 0;
 
-    // Iterate through the waste items to find the maximum deadline
-    for(const auto& item : wasteItemVec)
-    {
-        if(item.getDeadline() > maxDeadline)
-        {
-            maxDeadline = item.getDeadline();
-        }
-    }
     // initialize variables to keep track of the total storage cost as well as the current day
     int totalStorageCost = 0;
     int currDay = 1;
+    int vecSize = wasteItemVec.size();
 
-    while (currDay <= maxDeadline) { 
+    for(int i = 0; i < vecSize; i++)
+    {
+        totalStorageCost += wasteItemVec[i].getCost();
+    }
+
+    while (currDay <= wasteItemVec.back().getDeadline()) { 
         vector<WasteItem> sameDeadline;
-
+        
         // Iterate through the waste items
-        for(int i = 0; i < wasteItemVec.size(); i++)
+        for(int i = 0; i <= vecSize; i++)
         {
             if(wasteItemVec[i].getDeadline() == currDay)
             {
                 sameDeadline.push_back(wasteItemVec[i]);
-                totalStorageCost += wasteItemVec[i].getCost();
             }
         }
+
+        
 
         // Check if there are items with the current day as the deadline
         if (!sameDeadline.empty()) {
