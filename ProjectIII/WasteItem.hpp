@@ -1,3 +1,10 @@
+/********************************************************
+ * File: WasteItem.hpp                                 *
+ * Author: JMBlankley                                    *
+ * Date: 1/2024                                         *
+ * Purpose: Declaration for a WasteItem class           *
+ ********************************************************/
+
 #ifndef _WASTE_ITEM_
 #define _WASTE_ITEM_
 
