@@ -1,3 +1,10 @@
+/********************************************************
+ * File: main.cpp                                       *
+ * Author: JBlankley                                    *
+ * Date: March 2024                                     *
+ * Purpose: Main file for Waste Storage Optimization    *
+ ********************************************************/
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
