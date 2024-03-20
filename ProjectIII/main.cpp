@@ -83,6 +83,11 @@ void mergeSort(list<WasteItem> &wasteItems, list<WasteItem>::iterator left, list
     }
 }
 
+bool checkRemovedItems(vector<string> vec)
+{
+    
+}
+
 int main(int argc, char *argv[])
 {
    
@@ -126,32 +131,52 @@ int main(int argc, char *argv[])
         totalStorageCost += wasteItemVec[i].getCost();
     }
 
+    vector<string> itemsRemoved;
+
     while (currDay <= wasteItemVec.back().getDeadline()) { 
         vector<WasteItem> sameDeadline;
-        
-        // Iterate through the waste items
-        for(int i = 0; i <= vecSize; i++)
-        {
-            if(wasteItemVec[i].getDeadline() == currDay)
-            {
-                sameDeadline.push_back(wasteItemVec[i]);
+
+    // Iterate through the waste items
+    for(int i = 0; i < vecSize; i++) {
+        bool itemRemoved = false;
+        for(const auto& item : itemsRemoved) {
+            if(wasteItemVec[i].getName() == item) {
+                itemRemoved = true;
+                break;
             }
         }
+        if(!itemRemoved && wasteItemVec[i].getDeadline() >= currDay) {
+            sameDeadline.push_back(wasteItemVec[i]);
+        }
+    }
 
+        for(int j = 0; j < sameDeadline.size(); j++)
+        {
+            cout << sameDeadline[j] << endl;
+        }
 
-        // Check if there are items with the current day as the deadline
-        if (!sameDeadline.empty()) {
-            auto maxElement = std::max_element(sameDeadline.begin(), sameDeadline.end(), [](const WasteItem& a, const WasteItem& b) 
-            {
-                return a.getCost() < b.getCost();
-            });
+        auto maxElement = std::max_element(sameDeadline.begin(), sameDeadline.end(), [](const WasteItem& a, const WasteItem& b) 
+        {
+            return a.getCost() < b.getCost();
+        });
+        cout << "Max element value: " << maxElement->getCost() << endl;
+        cout << "Max element name: " << maxElement->getName() << endl;
+        // Subtract the cost of the item with the maximum cost from totalStorageCost
+        totalStorageCost -= maxElement->getCost();
+        cout << "Total Storage Cost: " << totalStorageCost << endl;
 
-            // Subtract the cost of the item with the maximum cost from totalStorageCost
-            totalStorageCost -= maxElement->getCost();
+        itemsRemoved.push_back(maxElement->getName());
+
+        cout << "Removed items vec: " << endl;
+        for(auto i : itemsRemoved)
+        {
+            cout << i << endl;
         }
 
         // Increment the current day
         currDay++;
+
+        cout << "======================================" << endl;
     }
 
     cout << totalStorageCost << endl;
