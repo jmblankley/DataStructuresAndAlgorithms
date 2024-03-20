@@ -1,8 +1,8 @@
 /********************************************************
- * File:ActivationRecord.cpp                            *
- * Author: JMBlankley                                    *
+ * File: WasteItem.cpp                                  *
+ * Author: JMBlankley                                   *
  * Date: 1/2024                                         *
- * Purpose: Implementation for an Activation Record     *
+ * Purpose: Implementation for a Waste Item             *
  ********************************************************/
 
 #include "WasteItem.hpp"

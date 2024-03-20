@@ -138,7 +138,6 @@ int main(int argc, char *argv[])
             }
         }
 
-        
 
         // Check if there are items with the current day as the deadline
         if (!sameDeadline.empty()) {

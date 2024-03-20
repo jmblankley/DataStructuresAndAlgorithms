@@ -1,3 +1,0 @@
-# Midterm Review
-
-## Topics
