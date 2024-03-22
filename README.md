@@ -773,3 +773,37 @@ Could implement the stack with:
   - Separate into two pieces
   - Conquer: recursively count inversions in each half
   - Combine: Count inversions where ai and aj are in different halves, and ...
+
+## Dynamic Programming
+
+### Algorithmic Paradigms
+
+- Greed: Build a solution incrementally, myopically optimizing some local criterion.
+- Divide and Conquer: Break up a problem into two sub-problems, solve each sub-problem independently, and comibe solution to sub-...
+
+### Dynamic Programmin History
+
+- Bellman
+  - Pioneered the systematic study of dynamic programming in the 1950s
+- Etymology
+  - Dynamic programming = planning over time.
+  - Secretary of Defense was hostile to mathematical research.
+  - Bellman sought an impressive name to avoid confrontation.
+  - "It's possible to use dynamic in a pejorative sense."
+  - "Something not even a Congressman could object to."
+
+### Dynamic Programmin Applications
+
+- Areas
+  - Bioinformatics
+  - Control theory
+  - Information theory
+  - Operations research
+  - Computer science: theory, graphics, AI, systems
+- Some famous dynamic programmin algorithms
+  - Viterbi for hidden Markov models
+  - Unix diff for comparing two files
+  - Smith-Waterman for sequence alignment
+  - Bellman-Ford for shortest path routing in networks
+  - Cocke-Kasami-Younger for parsing context free grammar
+  

@@ -1,24 +1,32 @@
 #include <iostream>
 using namespace std;
 
-int fibonacci(int n)
-{
-    long unsigned int answer;
-    if(n <= 1)
-    {
-        answer = 1;
-    }
-    else
-    {
-        answer = fibonacci(n-1) + fibonacci(n-2);
-    }
+#define MAXVAL 100
 
-    return answer;
+long unsigned int M[MAXVAL];
+
+long unsigned int fibonacci(long unsigned int n)
+{
+    M[0] = 1;
+    M[1] = 1;
+
+    for(int i = 2; i <= n; i++)
+    {
+        M[i] = M[i - 1] + M[i - 2];
+    }
+    
+    return M[n];
 }
 
 int main (int argc, char *argv[])
 {
-    int nVal;
+
+    for(int i = 0; i < MAXVAL; i++)
+    {
+        M[i] = 0;
+    }
+
+    long unsigned int nVal;
     while(true)
     {
         if(nVal == -1)
