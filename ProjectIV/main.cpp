@@ -22,6 +22,8 @@ float distance(const Point &p1, const Point &p2) {
 
 float ClosestPair(list<Point> points)
 {
+    // NEED TO FIGURE OUT THE BASE CASE FOR THIS PROBLEM
+
     cout << "Top of closest pair." << endl;
     // Compute separation line L such that half the points are on one side and half on the other side.
     auto separationLine = std::next(points.begin(), std::distance(points.begin(), points.end()) / 2);
