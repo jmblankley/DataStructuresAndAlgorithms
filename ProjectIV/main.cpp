@@ -54,7 +54,7 @@ float ClosestPair(list<Point>& points)
             return distance(p1, p2);
         }
         // If there's only one point, return a large value indicating no other points to compare.
-        return numeric_limits<float>::max();
+        return numeric_limits<float>::max(); // returns a crazy big number (biggest float value possible) meaning there are no more points to consider
     }
 
     // Compute separation line L such that half the points are on one side and half on the other side.
@@ -121,9 +121,10 @@ int main(int argc, char *argv[])
     ifstream inFile(filename);
 
     int numOfCoordinates;
-    string name;
-    float xCoord;
-    float yCoord;
+
+    string name; // name of point
+    float xCoord; // x coordinate of point
+    float yCoord; // y coordinate of point
 
     // Check if file is opened successfully
     if (!inFile)
@@ -153,6 +154,7 @@ int main(int argc, char *argv[])
     // Sort by X coordinates 
     points.sort(comparexCoord);
 
+    // Call ClosestPair to find the smallest distance
     ClosestPair(points);
 
     
