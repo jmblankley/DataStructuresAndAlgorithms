@@ -10,6 +10,10 @@ using namespace std;
 
 #include "Point.hpp"
 
+// Globals
+Point d1point;
+Point d2point;
+
 // Function: compareyCoord
 // Parameters: -- const Point& a - reference to the first Point object
 //             -- const Point& b - reference to the second Point object
@@ -39,18 +43,21 @@ float distance(const Point &p1, const Point &p2) {
     return sqrt(dx * dx + dy * dy);
 }
 
+
 // Function: ClosestPair
 // Parameters: -- list<Point>& points - list of points
 // Purpose: Finds the closest pair of points in the given list using the closest pair algorithm
 float ClosestPair(list<Point>& points)
 {
-    // Base case: If there are only two or fewer points, calculate the distance directly and return.
+    // Base case: If there are only three or fewer points, calculate the distance directly and return.
     if (points.size() <= 3) {
         // Handle the case when there are two points or fewer
         auto it = points.begin();
         Point p1 = *it++;
         Point p2 = *it;
         if (points.size() == 2) {
+            d1point = p1;
+            d2point = p2;
             return distance(p1, p2);
         }
         // If there's only one point, return a large value indicating no other points to compare.
@@ -82,7 +89,8 @@ float ClosestPair(list<Point>& points)
         }
     }
 
-    vector<Point> ansPoints; // Tried list but it was a little easier to grab the last two values from a vector
+    
+    // Tried list but it was a little easier to grab the last two values from a vector
     // Scan points in y-order and compare distance between each point and next 11 neighbors.
     for (auto it = closePoints.begin(); it != prev(closePoints.end(), 11); ++it) {
         auto end = next(it, 12);
@@ -90,24 +98,11 @@ float ClosestPair(list<Point>& points)
             float dist = distance(*it, *it2);
             if (dist < delta) {
                 delta = dist;
-                ansPoints.push_back(*it);
-                ansPoints.push_back(*it2);
+                d1point = *it;
+                d2point = *it2;
             }
         }
     }
-
-    cout << "Min distance: " << delta << endl;
-
-    cout << "Between: ";
-    for(int i = ansPoints.size() - 1; i >= 2; i--) // Iterate over vector starting from the end, and only go to the second to last item
-    {
-        cout << "[" << ansPoints[i].getName() << ":"  << "(" << ansPoints[i].getXCoord() << "," << ansPoints[i].getYCoord() << ")]";
-        if(i > 2) // Only put "and" if it is not the last item in the vector
-        {
-            cout << " and ";
-        }
-    }
-    cout << endl;
 
     return delta;
 }
@@ -155,7 +150,13 @@ int main(int argc, char *argv[])
     points.sort(comparexCoord);
 
     // Call ClosestPair to find the smallest distance
-    ClosestPair(points);
+    cout << "Min distance: " << ClosestPair(points) << endl;
+
+    cout << "Between: ";
+    cout << "[" << d1point.getName() << ":"  << "(" << d1point.getXCoord() << "," << d1point.getYCoord() << ")]";
+    cout << " and ";
+    cout << "[" << d2point.getName() << ":"  << "(" << d2point.getXCoord() << "," << d2point.getYCoord() << ")]" << endl;
+
 
     
 
