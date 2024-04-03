@@ -806,4 +806,59 @@ Could implement the stack with:
   - Smith-Waterman for sequence alignment
   - Bellman-Ford for shortest path routing in networks
   - Cocke-Kasami-Younger for parsing context free grammar
-  
+
+## Graphs
+
+### Graph Representations
+
+- Adjacency List: Node indexed array of lists
+  - Two Representations of each edge
+  - Space proportional to m + n
+  - Checking if (u, v) is an edge takes O(deg(u)) time
+  - Identifying all edges takes ...
+
+- Adjacency Matrix: n by n matrix with A_uv =1 if (u, v) is an edge.
+  - Two representations of each edge.
+  - Space proportional to n^2.
+  - Checking if (u, v) is an edge takes BigTheta(1) time.
+  - Identifying all edges takes BigTheta(n^2) time.
+
+### Paths and Connectivity
+
+- A path in an undirected graph G = (V, E) is a sequence P of nodes with the property that each consecutive pair is joined by an edge in E.
+- A path is simple if all nodes are distinct
+- An undirected graph is connected if for every pair of nodes u and v, there is a path between u and v.
+
+### Cycles
+
+- A cycle is a path in which v_1 = v_2, k > 2, and the first k through 1 noes are all distinct.
+
+### Trees(Graph Theory)
+
+- An undirected graph is a tree if it is connectd and does not contain a cycle.
+- Theorem:
+  - Let G be an undirected graph on n nodes. Any two of the following statements imply the third.
+    - G is connected
+    - G does not contain a cycle
+    - G has n-1 edges
+
+### Rooted Trees
+
+- Given a tree T, choose a root node r and orient each edge away from r.
+- Importance: Models hierarchical structure.
+
+### Connectivity
+
+- s-t Connectivity Problem: Given two nodes s and t, is there a path between s and t?
+- s-t Shortest Path Problem: Given two nodes s and t, what is the length of the shortest path (measure in "hop count") between s and t?
+- Applications:
+  - Maze traversal
+  - Kevin Bacon number
+  - Fewest number of hops in a communication network
+
+### Breadth First Search (BFS)
+
+- Explore outware from s in all possible directions, adding nodes one "layer" at a time.
+- BFS Theorem
+  - For each i, L_i consists of all nodes at distance exactly i from s. There is a path from s to t iff t appears in some layer.
+- BFS runs in O(m + n) time if the graph is gvien by its adjacency representation.
