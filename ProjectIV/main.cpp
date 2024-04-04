@@ -43,6 +43,11 @@ float distance(const Point &p1, const Point &p2) {
     return sqrt(dx * dx + dy * dy);
 }
 
+void updateClosestPoints(const Point& point1, const Point& point2) {
+    d1point = point1;
+    d2point = point2;
+}
+
 
 // Function: ClosestPair
 // Parameters: -- list<Point>& points - list of points
@@ -51,17 +56,23 @@ float ClosestPair(list<Point>& points)
 {
     // Base case: If there are only three or fewer points, calculate the distance directly and return.
     if (points.size() <= 3) {
-        // Handle the case when there are two points or fewer
-        auto it = points.begin();
-        Point p1 = *it++;
-        Point p2 = *it;
-        if (points.size() == 2) {
-            d1point = p1;
-            d2point = p2;
-            return distance(p1, p2);
+        float minDistance = numeric_limits<float>::max(); // Initialize minDistance to the maximum float value
+        auto it1_end = prev(points.end());
+        for (auto it1 = points.begin(); it1 != it1_end; ++it1) {
+            // Iterate over the next 11 points or until the end of the list
+            auto it2_end = next(it1, 12);
+            for (auto it2 = next(it1); it2 != it2_end && it2 != points.end(); ++it2) {
+                float currentDistance = distance(*it1, *it2); // Calculate distance between current pair of points
+                if (currentDistance < minDistance) {
+                    minDistance = currentDistance; // Update minDistance if current distance is smaller
+                    // Update the closest points
+                    updateClosestPoints(*it1, *it2);
+                }
+            }
         }
-        // If there's only one point, return a large value indicating no other points to compare.
-        return numeric_limits<float>::max(); // returns a crazy big number (biggest float value possible) meaning there are no more points to consider
+
+        // Return the minimum distance
+        return minDistance;
     }
 
     // Compute separation line L such that half the points are on one side and half on the other side.
@@ -83,12 +94,12 @@ float ClosestPair(list<Point>& points)
 
     // Keep track of points within the delta range from the separation line
     list<Point> closePoints;
+    
     for (const auto& point : points) {
-        if (abs(point.getXCoord() - separationLine->getXCoord()) < delta) {
+        if (point.getXCoord() - separationLine->getXCoord() < delta) {
             closePoints.push_back(point);
         }
     }
-
     
     // Tried list but it was a little easier to grab the last two values from a vector
     // Scan points in y-order and compare distance between each point and next 11 neighbors.
@@ -98,14 +109,15 @@ float ClosestPair(list<Point>& points)
             float dist = distance(*it, *it2);
             if (dist < delta) {
                 delta = dist;
-                d1point = *it;
-                d2point = *it2;
+                // Update the closest points
+                updateClosestPoints(*it, *it2);
             }
         }
     }
 
     return delta;
 }
+
 
 int main(int argc, char *argv[])
 {
