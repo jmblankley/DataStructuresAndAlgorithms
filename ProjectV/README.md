@@ -1,8 +1,8 @@
-# Closest Points
+# Waste Disposal (Dynamic Programming Algorithm)
 
 **Author:** Joshua M blankley
 
-**Date:** March 2024
+**Date:** April 2024
 
 ## Description
 
