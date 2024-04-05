@@ -121,10 +121,13 @@ float ClosestPair(list<Point>& points)
 
 int main(int argc, char *argv[])
 {
-    cout << "Please enter a file name: ";
-    string filename;
-    cin >> filename;
+    if(argc < 2)
+    {
+        cerr << "USAGE ERROR, EXPECTED: ./run <filename>" << endl;
+        return 1;
+    }
 
+    string filename = argv[1];
     ifstream inFile(filename);
 
     int numOfCoordinates;
