@@ -61,3 +61,5 @@ Closest-Pair(p 1 , ..., p n ) {
 - Got initial idea down, just need to fix up the format of the output.
 - Struggled figuring out a base case for the recursion. Ended up using the limits library to return a massive float number, this signifies that there are no more points to compare to.
 - Fixed up the formatting.
+- Got some extra test cases that I was not passing.
+- Fixed all the new test cases but one. Had to mess with the base case to get it work. Still need to figure out the last one.
