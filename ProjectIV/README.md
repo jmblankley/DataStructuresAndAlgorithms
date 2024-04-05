@@ -63,3 +63,5 @@ Closest-Pair(p 1 , ..., p n ) {
 - Fixed up the formatting.
 - Got some extra test cases that I was not passing.
 - Fixed all the new test cases but one. Had to mess with the base case to get it work. Still need to figure out the last one.
+- Figured out the issue with the last test case. It was comparing the delta to a dist of zero causing it to fall into the if statement prematurely.
+- BUG: Test case "test2.txt" is giving the correct distance but the wrong points.

@@ -107,14 +107,13 @@ float ClosestPair(list<Point>& points)
         auto end = next(it, 12);
         for (auto it2 = next(it); it2 != end; ++it2) {
             float dist = distance(*it, *it2);
-            if (dist < delta) {
+            if (dist < delta && dist != 0) {
                 delta = dist;
                 // Update the closest points
                 updateClosestPoints(*it, *it2);
             }
         }
     }
-
     return delta;
 }
 
