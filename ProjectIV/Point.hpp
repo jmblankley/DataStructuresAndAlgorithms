@@ -1,3 +1,15 @@
+/***********************************************
+ * File: Point.hpp                             *
+ *                                             *
+ * Author: Joshua Blankley                     *
+ *                                             *
+ * Date: April 2024                            *
+ *                                             *
+ * Purpose: This file contains the definition  *
+ * of the Point class, which represents a      *
+ * point in a 2-dimensional plane.             *
+ ***********************************************/
+
 #ifndef _POINT_HPP_
 #define _POINT_HPP_
 

@@ -65,3 +65,6 @@ Closest-Pair(p 1 , ..., p n ) {
 - Fixed all the new test cases but one. Had to mess with the base case to get it work. Still need to figure out the last one.
 - Figured out the issue with the last test case. It was comparing the delta to a dist of zero causing it to fall into the if statement prematurely.
 - BUG: Test case "test2.txt" is giving the correct distance but the wrong points.
+  - Tested with a much larger input file and it gets it correct with the correct points as well. Not sure why this specific test case is giving the wrong pair.
+  - Tested with files of size 25, 50, 75, 100. The minimun distance is found everytime, but on the file with 100 entries gets the same issue at test2.txt
+  - I think the issue is the merge.

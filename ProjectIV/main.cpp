@@ -1,3 +1,23 @@
+/*******************************************************
+ * File: main.cpp                                      *
+ *                                                     *
+ * Author: Joshua Blankley                             *
+ *                                                     *
+ * Date: April 2024                                    *
+ *                                                     *
+ * Purpose: This project implements an algorithm to    *
+ * efficiently find the distance between the two       *
+ * closest points on a 2-dimensional plane. Given a    *
+ * set of points in the plane, the algorithm employs a *
+ * divide-and-conquer approach to determine the        *
+ * closest pair.                                       *
+ *                                                     *
+ * BUGS: For some test cases the incorrect points are  *
+ * returned, but the minimum distance is calculated    *
+ * properly.                                           *
+ *******************************************************/
+
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -46,7 +66,8 @@ float distance(const Point &p1, const Point &p2) {
 void updateClosestPoints(const Point& point1, const Point& point2) {
     d1point = point1;
     d2point = point2;
-}
+    cout << "one: " << d1point.getName() << ", two: " << d2point.getName() << endl;
+ }
 
 
 // Function: ClosestPair
