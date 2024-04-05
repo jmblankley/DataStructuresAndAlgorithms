@@ -66,7 +66,6 @@ float distance(const Point &p1, const Point &p2) {
 void updateClosestPoints(const Point& point1, const Point& point2) {
     d1point = point1;
     d2point = point2;
-    cout << "one: " << d1point.getName() << ", two: " << d2point.getName() << endl;
  }
 
 
