@@ -5,21 +5,30 @@
 #include <vector>
 #include "Item.hpp"
 
-#define MAXVAL 10000
+vector<Item> storedItems;
 
-std::vector<Item> storedItems;
-
-int totalCost(int n, int W, const int* sC, const int* iT) {
-    long unsigned int M[n+1][W+1]; // Initialize the memoization table
-
-    for(int i = 0; i <= n; i++) {
-        for(int w = 0; w <= W; w++) {
-            M[i][w] = 0;
-        }
+// Function: totalCost
+// Parameters: -- const Point& a - reference to the first Point object
+//             -- int n - number of items to look at
+//             -- int T - total time availble
+//             -- const int* sC - pointer to the storage cost array
+//             -- const int* iT - pointer to the incinerationTime array
+// Purpose: Uses the knapsack algorithm (dynamic programming) to minimize the total storage cost
+int totalCost(int n, int T, const int* sC, const int* iT) {
+    long unsigned int M[n+1][T+1]; // Initialize the memoization table
+    
+    for(int w = 0; w <= T; w++)
+    {
+        M[0][w] = 0;
+    }
+    for(int i = 0; i <= n; i++)
+    {
+        M[i][0] = 0;
     }
 
+    // fill up the 2d array using the knapsack algorithm
     for(int i = 1; i <= n; i++) {
-        for(int w = 1; w <= W; w++) {
+        for(int w = 1; w <= T; w++) {
             if(iT[i - 1] > w) {
                 M[i][w] = M[i - 1][w];
             } else {
@@ -28,16 +37,18 @@ int totalCost(int n, int W, const int* sC, const int* iT) {
         }
     }
 
+    // DEBUG
     // Print the 2D array M
     std::cout << "Memoization Table (M):" << std::endl;
     for(int i = 0; i <= n; i++) {
-        for(int w = 0; w <= W; w++) {
+        for(int w = 0; w <= T; w++) {
             std::cout << M[i][w] << "\t";
         }
         std::cout << std::endl;
     }
+    // DEBUG
 
-    return M[n][W];
+    return M[n][T];
 }
 
 int main(int argc, char *argv[]) {
