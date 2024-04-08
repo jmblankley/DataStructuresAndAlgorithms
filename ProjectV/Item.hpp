@@ -4,14 +4,14 @@ using namespace std;
 
 class Item {
 public:
-    Item(const string& name, int value, int weight) : name(name), value(value), weight(weight) {}
+    Item(const string& name, int storageCost, int incinerationTime) : _name(name), _storageCost(storageCost), _incinerationTime(incinerationTime) {}
 
-    string getName() const { return name; }
-    int getValue() const { return value; }
-    int getWeight() const { return weight; }
+    string getName() const { return _name; }
+    int getStorageCost() const { return _storageCost; }
+    int getIncinerationTime() const { return _incinerationTime; }
 
 private:
-    string name;
-    int value;
-    int weight;
+    string _name;
+    int _storageCost;
+    int _incinerationTime;
 };
