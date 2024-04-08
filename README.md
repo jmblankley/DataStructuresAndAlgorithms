@@ -862,3 +862,63 @@ Could implement the stack with:
 - BFS Theorem
   - For each i, L_i consists of all nodes at distance exactly i from s. There is a path from s to t iff t appears in some layer.
 - BFS runs in O(m + n) time if the graph is gvien by its adjacency representation.
+
+### Greedy Algorithms
+
+- Simplifying Assumption
+  - All edge costs c are distinct.
+- Cut Property
+  - Let S be any subset of nodes, and let e be the minimum cost edge with exactly one endpoint in S. Then the MST contains e.
+- Cycle Property
+  - Let C be any cycle, and let f be the max cost edge belonging to C. Then the MST does not contain f.
+
+### Prim's Algorithm
+
+- Implementation
+  - Maintain set of explored nodes S.
+  - For each unexplored node v, maintain attachment const a[v] = cost of cheapest edge v to a node in S.
+  - O(n^2) with an array; O(nlogn) with a binary heap (or balanced tree).
+- Pseudocode
+  ```c++
+  Prim(G, c){
+    for each (v in V) a[v] <- infinity
+      Initialize an empty priority queue Q
+    for each (v in V){
+      insert v onto Q, keyed on a[v]
+      Initialize set of explored nodes S <- empty
+    }
+    while (Q is not empty) {
+      u <- delete min element from Q
+      S <- S union {u}
+      for each (edge e = (u, v))
+      {
+        if((v not in S) and (c < a[v]))
+          decrease priority of a[v] to c
+      }
+    }
+  }
+  ```
+
+### Kruskal's Algorithm
+
+- Implementation
+  - Build set T of edges in the MST
+  - Maintain set for each connected component.
+  - O(nlogn) for sorting and O(m alpha(m,n)) for union-find.
+- Psuedocode:
+```c++
+Kruskal(G, c) {
+  Sort edges e so that c_1 <= c_2 <= ... <= c_m
+  T <- empty
+
+  for each(c in V)
+  {
+    make a set containing  single ton u
+  }
+
+  for (i = 1 to m){
+    (u,v) = theta .
+  }
+  ...
+}
+```
