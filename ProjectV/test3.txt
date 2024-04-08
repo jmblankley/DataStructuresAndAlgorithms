@@ -1,0 +1,11 @@
+10 20
+item1 5 2
+item2 10 3
+item3 15 5
+item4 20 7
+item5 25 10
+item6 30 12
+item7 35 15
+item8 40 17
+item9 45 20
+item10 50 22
