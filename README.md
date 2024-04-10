@@ -917,8 +917,13 @@ Kruskal(G, c) {
   }
 
   for (i = 1 to m){
-    (u,v) = theta .
+    (u,v) = theta
+    if (u and v are ij different sets)
+    {
+      T <- T U {e}
+      merge the sets containing u and v
+    }
   }
-  ...
+  return T
 }
 ```
