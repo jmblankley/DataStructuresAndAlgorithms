@@ -927,3 +927,48 @@ Kruskal(G, c) {
   return T
 }
 ```
+
+## Intractability & NP Completeness
+
+### Classify Problems
+
+- Classify problems according to those that can be solved in polynomial-time and those that cannot
+
+- Probably requires exponential-time
+  - ex. Given a board position in an n-by-n generalization of chess, can black guarantee a win?
+
+- Frustrating News
+  - Huge number of fundamental problems have defied classification for decades.
+
+- New Goal
+  - Show that these fundamental problems are "computationally equivalent" and appear to be different manifestations of one really hard problems.
+
+### Polynomial-Time Reduction
+
+- Suppose we could sove problem Y in polynomial-time. What else could we solve in polynomial time?
+- Problem X polynomial reduces to problem Y if arbitrary instances of problem X can be solved using
+  - Polynomial number of standard computational steps, plus
+  - Polynomial number of calls to oracle that solves problem Y
+    - Oracle: computational model supplemented by special piece of hardware that solves instaces of Y in a single step
+- We pay for time to write down instances sent to the oracle => instances of Y must be of polynomial size.
+- Purpose
+  - Classify problems according to realtive difficulty.
+- Design Algorithms
+  - If X <= Y and Y can be solved in ploynomial-time, then X can alos be solved in polynomial time.
+- Establish Intractability
+  - If X <= Y and X cannot be solved in polynomial time, then Y cannot be solved in polynomial time.
+- Establish Equivalence
+  - If X <= Y and Y <= X, we use notation X == Y. (RARE)
+
+### Independent Set
+
+- Given a graph G = (V, E) and an integer k, is there a subset of verticies S from V such that |S| >= k, and for each edge at most one of its endpoints is in S?
+
+### Vertex Cover
+
+- Given a graph G = (V, E) and an integer k, is there a subset of verticies S from V such that |S| <= k, and for each edge at least one of its endpoints is in S?
+
+### Vetex Cover and Independent Set
+
+- VERTEX-COVER = INDEPENDENT-SET
+- We show S is an independent set iff V - S is a vertext cover.
