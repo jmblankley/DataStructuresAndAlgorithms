@@ -1,3 +1,13 @@
+/********************************************************
+* File: Edge.hpp                                        *
+*                                                       *
+* Author: Joshua M. Blankley                            *
+*                                                       *
+* Purpose: Defines the Edge class which represents the  *
+* edges in a map.                                       *
+*********************************************************/
+
+
 #include <string>
 
 using namespace std;
@@ -9,8 +19,8 @@ private:
     int _length;
 
 public:
-    Edge() : _nodeA(""), _nodeB(""), _length(0) {}
-    Edge(string nodeA, string nodeB, int length) : _nodeA(nodeA), _nodeB(nodeB), _length(length) {}
+    Edge() : _nodeA(""), _nodeB(""), _length(0) {} // Empty constructor
+    Edge(string nodeA, string nodeB, int length) : _nodeA(nodeA), _nodeB(nodeB), _length(length) {} // Full constructor
 
     // Accessors
     string getNodeA() const { return _nodeA; }
