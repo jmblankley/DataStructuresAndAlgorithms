@@ -1,0 +1,10 @@
+Niihau Kauai		25
+Niihau Oahu		100
+Kauai Maui		200
+Kauai Oahu		90
+Oahu Molokai		30
+Oahu Lanai		70
+Oahu Maui		90
+Lanai Maui		35
+Maui Hawaii		110
+Hawaii Kauai		175

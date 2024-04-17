@@ -970,5 +970,88 @@ Kruskal(G, c) {
 
 ### Vetex Cover and Independent Set
 
-- VERTEX-COVER = INDEPENDENT-SET
+- VERTEX-COVER =opp. INDEPENDENT-SET
 - We show S is an independent set iff V - S is a vertext cover.
+- Claim - VERTEX COVER =opp. INDEPENDENT SET
+  - Proof: We show S is an independent set iff V - S is a vertex cover.
+    => 
+      - Let S be any independent set
+      - Consider an arbitrary edge (u, v).
+      - S independent => u is not in S or v is not in S => u is in V - S or v is in V - S
+      - Thus, V - S covers (u, v)
+    =>
+      - Let V - S be any vertex cover
+      - Consider two nodes u in S and v in S (i.e. u and v are not in vertex cover)
+      - Observe that (u, v) not in E since V - S is a vertex cover
+      - Thus, no two nodes in S are joined by an edge => S independent
+
+### Set Cover
+
+- Given a set of U of elements, a collection S_1, S_2, ..., S_m of subsets of U, and an integer k, does there exist a collection of <= k of these sets whose union is equal to U?
+- Sample Application
+  - Set U of n capabilites that we would like our system to have
+  - m available pieces of software
+  - The ith piece of software provides the set S_i containted in U of capabilites
+  - Goal
+    - Achieve all n capabilities using k (or fewer) pieces of software
+
+### Vertex Cover REduces to Set Cover
+
+- Given a VERTEX-COVER instance G = (V, E), k, we construct a set cover instance whose size equals the size of the vertex cover instance.
+
+### Satisfiability
+
+- A boolen variable or its negation
+- A disjunction of literals
+- Conjuctive Normal Form
+  - A propositional formula OMEGA that is the conjuction of clauses
+- Given CNF formula OMEGA, does it have a satisfying truth assignment?
+- SAT where each clause contains exactly 3 literals.
+
+### Self-Reducability
+
+- Descision Problem
+  - Does there exist a vertex cover of size <= k?
+- Serach Problem
+  - Find vertex cover of minimum cardinality.
+- Self-Reducability
+  - Applies to all (NP-Complete) problems
+  - Justifies focus on decision problem
+
+### Decision Problems
+
+- Decision Problem
+  - X is a set of strings
+  - Instance: string s
+  - Algorithm A solves decision problem X: A(s) = yes iff s in X
+- Polynomial Time
+  - Algorithm A runs in poly-time if for every string s, A(s) terminates in at most p(|s|) "steps", where p(.) is some polynomial
+- PRIMES: X = {2,3,5,7,13,17,23,29,31,37, ...}
+- Algorithm
+  - Agrawal-Kayal-Saxena, 2002
+  - p(|s|) = |s|^8
+
+### Definition of P
+
+- Decision problems for which there is a poly-time algorithm
+
+### Definition of NP
+
+- Certification Algorithn Intuition
+  - Certifier views things from "managerial" viewpoint
+  - Certifier doesn't determine whetehr s in X on its own; rather, it checks a proposed proof t that s in X.
+- Algorithm C(s,t) is a certifier for problem X if for every string s, s in X iff there exists a string t such that C(s,t) = yes
+- NP
+  - Decision problems for which there exists a poly-time certifier
+
+### Cerifiers and Certificates: Composite
+
+- Certificate
+  - A nontrivial factor t of s. Note that such a certificiate exists iff s is composite. Moreover |t| <= |s|.
+
+### Cerifiers and Certificates: 3-Satisfiability
+
+- SAT: Given a CNF formula omega, is there a satisfying assignment?
+- Certificate: An assignment of truth values to the n boolean variables
+- Certifier: Check that each clause in omega has at least on true literal.
+- 3-SAT is in NP
