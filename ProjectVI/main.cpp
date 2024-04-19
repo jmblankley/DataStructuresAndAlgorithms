@@ -13,11 +13,31 @@ bool sortByLength(const Edge& a, const Edge& b) {
 
 void Kruskal(vector<Edge> graph)
 {
+    /************************************************************
+    *                                                           *
+    * Pseudocode:                                               *
+    *                                                           *
+    *    Kruskal(G, c) {                                        *
+    *        Sort edges by their weights                        *
+    *        T ← φ                                              *
+    *        foreach (u ∈ V) make a set containing singleton u  *
+    *        for i = 1 to m                                     *
+    *           are u and v in different connected components?  *
+    *           (u,v) = ei                                      *
+    *           if (u and v are in different sets) {            *
+    *               T ← T ∪ {ei}                                *
+    *               merge the sets containing u and v           *
+    *           }                                               *
+    *        merge two components                               *
+    *        return T                                           *
+    *   }                                                       *
+    *                                                           *
+    *************************************************************/
     sort(graph.begin(), graph.end(), sortByLength);
 
     for(auto i : graph)
     {
-        cout << i.getLength() << endl;
+        cout << "( " << i.getNodeA() << ", " << i.getNodeB() << " ) " << i.getLength() << endl;
     }
 }
 

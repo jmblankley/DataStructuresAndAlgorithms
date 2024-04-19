@@ -1055,3 +1055,38 @@ Kruskal(G, c) {
 - Certificate: An assignment of truth values to the n boolean variables
 - Certifier: Check that each clause in omega has at least on true literal.
 - 3-SAT is in NP
+
+### P, NP, EXP
+
+- P
+  - Decision problems for which there is a poly-time algorithm.
+- EXP
+  - Decision problems for which there is an exponential-time algorithm.
+- P
+  - Decision problems for which there is a poly-time certifier.
+- P is in NP
+- NP is in EXP
+
+### NP-Complete
+
+- NP-Complete
+  - A problem Y in NP with the porperty that for every problem X in NP, X <= Y.
+- Theorem
+  - Suppose Y is an NP-Complete problem. Then Y is solvable in poly-time iff P = NP.
+
+### Circuit Satisfiability
+
+- Circuit-SAT
+  - Given a combinational circuit built out of AND, OR, and NOT gates, is there a way to set the circuit inputs so that the output is 1?
+- The "First" NP-Complete Problem
+  - Any algorithm that takes a fixed number of bits n as input and produces a yes/no answer can be represented by such a circuit. Moreover, if algorithm takes poly-time, then circuit is of poly-size.
+
+### Establishing NP-Completeness
+
+-Once we establish first 'natural' NP-Complete problem, others fall like dominoes.
+- Recipe to establish NP-Completeness of problem Y
+  - Step 1: Show that Y is in NP
+  - Step 2: Choose an NP-Complete problem X.
+  - Step 3: Prove that X <=_p Y.
+- Justification
+  - If X in an NP-Complete problem, and Y is a problem in NP with the property that is X <=_p Y then Y is NP-Complete.
