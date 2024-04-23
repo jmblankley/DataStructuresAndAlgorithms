@@ -4,7 +4,7 @@
 * Author: Joshua M. Blankley                            *
 *                                                       *
 * Purpose: Defines the Edge class which represents the  *
-* edges in a map.                                       *
+* edges in a graph.                                     *
 *********************************************************/
 
 

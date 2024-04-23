@@ -1,2 +1,0 @@
-- MINIMUM SPANNING TREE PROBLEM
-- A connection between the two locations is an edge

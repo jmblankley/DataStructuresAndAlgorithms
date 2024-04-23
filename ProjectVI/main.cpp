@@ -1,55 +1,41 @@
+/********************************************************
+* File: main.cpp                                        *
+*                                                       *
+* Author: Joshua M Blankley                             *
+*                                                       *
+* Purpose: This project is an exercise in using graphs  *
+* to solve a networking problem rather than a           *
+* functional communication program. It aimed to         *
+* efficiently connect islands with computer network     *
+* lines, ensuring seamless communication while          *  
+* minimizing costs. By representing the problem as a    *
+* graph and coding a specialized algorithm, the project *
+* demonstrates the application of graph theory          * 
+* principles in solving real-world challenges.          *
+*********************************************************/
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <algorithm>
-#include <unordered_map> // For mapping node names to indices
-#include "Edge.hpp" // Assuming Edge.hpp contains the definition of Edge class
+#include <unordered_map>
+#include "Edge.hpp"
+#include "SingletonSet.hpp"
 
 using namespace std;
 
-class DisjointSet {
-private:
-    vector<int> parent;
-    vector<int> rank;
-
-public:
-    DisjointSet(int n) {
-        parent.resize(n);
-        rank.resize(n, 0);
-        for (int i = 0; i < n; ++i)
-            parent[i] = i;
-    }
-
-    int find(int u) {
-        if (parent[u] != u)
-            parent[u] = find(parent[u]);
-        return parent[u];
-    }
-
-    void merge(int u, int v) {
-        int rootU = find(u);
-        int rootV = find(v);
-
-        if (rootU != rootV) {
-            if (rank[rootU] < rank[rootV])
-                parent[rootU] = rootV;
-            else if (rank[rootU] > rank[rootV])
-                parent[rootV] = rootU;
-            else {
-                parent[rootV] = rootU;
-                rank[rootU]++;
-            }
-        }
-    }
-};
-
+// Sort by Edge lengths
 bool sortByLength(const Edge& a, const Edge& b) {
     return a.getLength() < b.getLength();
 }
 
+// Function: Kruskal
+// Parameters: -- vector<Edge> graph - list of edges representing the graph
+// Purpose: Implements Kruskal's algorithm to find the minimum spanning tree (MST) of a graph.
+//          Returns the MST as a list of edges.
 vector<Edge> Kruskal(vector<Edge> graph) {
-    // Create a mapping from node names to indices
+    // Create a map from node names to indices
     unordered_map<string, int> nodeIndices;
     int index = 0;
     for (const auto& edge : graph) {
@@ -61,9 +47,9 @@ vector<Edge> Kruskal(vector<Edge> graph) {
         }
     }
 
-    // Initialize disjoint set
+    // Initialize singleton set
     int numNodes = nodeIndices.size();
-    DisjointSet ds(numNodes);
+    SingletonSet ds(numNodes);
 
     // Initialize minimum spanning tree
     vector<Edge> mst;
@@ -88,6 +74,7 @@ vector<Edge> Kruskal(vector<Edge> graph) {
     return mst;
 }
 
+
 int main(int argc, char *argv[]) {
     if (argc < 2) {
         cerr << "USAGE ERROR, EXPECTED: ./project5 <filename>" << std::endl;
@@ -101,7 +88,7 @@ int main(int argc, char *argv[]) {
         return 2; // Return an error code
     }
 
-    vector<Edge> graph; // vector of edges (each edge includes two nodes and the length between them)
+    vector<Edge> graph; // Vector of edges (each edge includes two nodes and the length between them)
 
     // Iterate through the inFile and construct Edges and push them into the map
     string line;
@@ -119,7 +106,6 @@ int main(int argc, char *argv[]) {
 
     // Print the minimum spanning tree if needed
     for (const auto& edge : mst) {
-        // cout << edge.getNodeA() << " " << edge.getNodeB() << " " << edge.getLength() << endl;
         maxCost += edge.getLength();
     }
 
