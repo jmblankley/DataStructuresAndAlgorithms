@@ -1,6 +1,6 @@
 # Kruskal's Algorithm Example Program
 
-**Author:** Joshua M blankley
+**Author:** Joshua M Blankley
 
 **Date:** April 2024
 
