@@ -1,4 +1,4 @@
-# Waste Disposal (Dynamic Programming Algorithm)
+# Kruskal's Algorithm Example Program
 
 **Author:** Joshua M blankley
 
