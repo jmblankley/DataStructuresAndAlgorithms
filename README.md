@@ -1090,3 +1090,36 @@ Kruskal(G, c) {
   - Step 3: Prove that X <=_p Y.
 - Justification
   - If X in an NP-Complete problem, and Y is a problem in NP with the property that is X <=_p Y then Y is NP-Complete.
+
+## Approximation Algorithms
+
+- Q: Suppose I need to solve an NP-Complete problem. What should I do?
+- A: Theory says you're unlikely to find a poly-time algorithm.
+- Must sacrifice on of three desired features
+  - Solve porblem to optimality.
+  - Solve problem in poly-time.
+  - Solve arbitrary instances of the problem.
+- roh-approximation algorithm
+  - Guaranteed to solve arbitrary instance of the problem
+  - Guaranteeded to solve arbitrary instance of the problem.
+  - Guaranteed to find solution within ratio roh of true optimum
+
+### Center Selection Problem
+
+- Input: Set of n sites s_1, ..., s_n
+- Center Selection Problem: Select a set C made up of k centers so that maximum disance from a site to nearest center is minimized.
+- Notation
+  - dist(x,y) = distance between x and y
+  - dist(s,C) = min_(cinC)dist(s,c) = distance from s_i to closest center
+  - r(C) = max, dist(s,C) = best (smallest) covering radius
+- Goal: Find set of centers C that minimizes r(C), subject to |C| = k.
+- Distance Function Properties
+  - dist(x,y) = 0
+  - dist(x,y) = dist(y,x)
+  - dist(x,y) <= dist(x,z) + dist(z,y)
+
+### Greedy Algorithm: A False Start
+
+- Put the first center at the best possible location for a single center, and then keep adding centers so as to reduce the covering radius each time by as much as possible.
+- Remark: arbitarily bad!
+
